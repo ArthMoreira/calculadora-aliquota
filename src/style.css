@@ -281,15 +281,22 @@ button:hover::after {
    =============================== */
 .base-legal-card {
   background: rgba(53, 57, 65, 0.5);
+  backdrop-filter: var(--blur);
   border: 1px solid rgba(95, 133, 219, 0.2);
   border-left: 3px solid var(--primary-color);
+  border-radius: var(--radius);
   padding: 1.5rem;
   margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow);
+  min-height: 100px;
+  transition: all var(--transition);
 }
 
 .base-legal-card:hover {
   transform: none;
   border-color: rgba(95, 133, 219, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .base-legal-titulo {

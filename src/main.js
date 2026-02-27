@@ -116,14 +116,24 @@ function carregarBairros() {
  * Renderiza a base legal no card
  */
 function renderizarBaseLegal() {
+  console.log("Tentando renderizar base legal...");
+  console.log("BASE_LEGAL_IPTU:", BASE_LEGAL_IPTU);
+  
   const container = document.getElementById("baseLegal");
-  if (!container) return;
+  console.log("Container encontrado:", container);
+  
+  if (!container) {
+    console.error("Elemento #baseLegal não encontrado!");
+    return;
+  }
 
   container.innerHTML = `
     <h3 class="base-legal-titulo">${BASE_LEGAL_IPTU.titulo}</h3>
     <p class="base-legal-texto">${BASE_LEGAL_IPTU.texto}</p>
     <p class="base-legal-ref">${BASE_LEGAL_IPTU.referencia}</p>
   `;
+  
+  console.log("Base legal renderizada com sucesso!");
 }
 
 // ===============================
