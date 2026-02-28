@@ -148,31 +148,145 @@ function initTableSearch() {
 }
 
 // ==========================================================================
-// BAIRROS (popular <select>)
+// BAIRROS — Combobox com filtro
 // ==========================================================================
-function carregarBairros() {
+function normalizarTexto(str) {
+  return String(str)
+    .trim()
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function initBairroCombobox() {
   const lista = getListaBairros();
-  const select = $("bairro");
-  if (!select) {
-    console.error("[IPTU] <select id='bairro'> não encontrado.");
+  const input    = $("bairroInput");
+  const list     = $("bairroList");
+  const hidden   = $("bairro");
+  const combobox = $("bairroCombobox");
+
+  if (!input || !list || !hidden) {
+    console.error("[IPTU] Combobox de bairro não encontrado.");
     return;
   }
 
-  const frag = document.createDocumentFragment();
-  const optDefault = document.createElement("option");
-  optDefault.value = "";
-  optDefault.textContent = "Selecione o bairro…";
-  frag.appendChild(optDefault);
+  let activeIdx = -1;
+  let isSelected = false; // true quando o usuário escolheu da lista
 
-  lista.forEach((nome) => {
-    const opt = document.createElement("option");
-    opt.value = nome;
-    opt.textContent = nome;
-    frag.appendChild(opt);
+  function getItems() {
+    return [...list.querySelectorAll(".combobox-item")];
+  }
+
+  function openList(items) {
+    list.classList.add("open");
+    combobox.setAttribute("aria-expanded", "true");
+  }
+
+  function closeList() {
+    list.classList.remove("open");
+    combobox.setAttribute("aria-expanded", "false");
+    setActive(-1);
+  }
+
+  function setActive(idx) {
+    activeIdx = idx;
+    getItems().forEach((el, i) => {
+      el.classList.toggle("combobox-active", i === idx);
+      if (i === idx) el.scrollIntoView({ block: "nearest" });
+    });
+  }
+
+  function selectBairro(nome) {
+    input.value = nome;
+    hidden.value = nome;
+    isSelected = true;
+    input.classList.remove("combobox-invalid");
+    closeList();
+  }
+
+  function renderList(query) {
+    list.innerHTML = "";
+    activeIdx = -1;
+
+    const norm = normalizarTexto(query);
+    const filtrados = query.trim()
+      ? lista.filter((b) => normalizarTexto(b).includes(norm))
+      : lista.slice(0, 40); // mostra primeiros 40 sem filtro
+
+    if (filtrados.length === 0) {
+      const li = document.createElement("li");
+      li.className = "combobox-empty";
+      li.textContent = "Nenhum bairro encontrado";
+      list.appendChild(li);
+    } else {
+      filtrados.forEach((nome) => {
+        const li = document.createElement("li");
+        li.className = "combobox-item";
+        li.textContent = nome;
+        li.setAttribute("role", "option");
+        li.addEventListener("mousedown", (e) => {
+          e.preventDefault(); // evita blur antes do clique registrar
+          selectBairro(nome);
+        });
+        list.appendChild(li);
+      });
+    }
+
+    openList();
+  }
+
+  // Digitar
+  input.addEventListener("input", () => {
+    isSelected = false;
+    hidden.value = "";
+    input.classList.remove("combobox-invalid");
+    renderList(input.value);
   });
 
-  select.innerHTML = "";
-  select.appendChild(frag);
+  // Foco: mostra sugestões iniciais
+  input.addEventListener("focus", () => {
+    renderList(input.value);
+  });
+
+  // Teclado
+  input.addEventListener("keydown", (e) => {
+    const items = getItems();
+    const validItems = items.filter((el) => el.classList.contains("combobox-item"));
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActive(Math.min(activeIdx + 1, validItems.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActive(Math.max(activeIdx - 1, 0));
+    } else if (e.key === "Enter") {
+      if (activeIdx >= 0 && validItems[activeIdx]) {
+        e.preventDefault();
+        selectBairro(validItems[activeIdx].textContent);
+      }
+    } else if (e.key === "Escape") {
+      closeList();
+    }
+  });
+
+  // Fechar ao clicar fora
+  document.addEventListener("click", (e) => {
+    if (!combobox.contains(e.target)) {
+      // Valida se o que foi digitado não corresponde a nenhum bairro
+      if (!isSelected && input.value.trim()) {
+        const match = lista.find(
+          (b) => normalizarTexto(b) === normalizarTexto(input.value)
+        );
+        if (match) {
+          selectBairro(match);
+        } else {
+          hidden.value = "";
+          input.classList.add("combobox-invalid");
+        }
+      }
+      closeList();
+    }
+  });
 }
 
 // ==========================================================================
@@ -225,7 +339,7 @@ function calcular() {
 
   if (!bairro) {
     alert("Selecione um bairro.");
-    $("bairro")?.focus();
+    $("bairroInput")?.focus();
     return;
   }
   if (!valor || valor.trim().length === 0) {
@@ -282,7 +396,7 @@ function inicializar() {
     initNavbar();
     initTabs();
     initTableSearch();
-    carregarBairros();
+    initBairroCombobox();
     initCalculadora();
     renderizarBaseLegal();
   } catch (err) {

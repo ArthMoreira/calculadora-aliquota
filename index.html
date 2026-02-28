@@ -83,10 +83,21 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="bairro">Bairro</label>
-                  <select id="bairro" required aria-required="true">
-                    <option value="">Selecione o bairro…</option>
-                  </select>
+                  <label for="bairroInput">Bairro</label>
+                  <div class="combobox" id="bairroCombobox" role="combobox" aria-haspopup="listbox" aria-expanded="false">
+                    <input
+                      type="text"
+                      id="bairroInput"
+                      class="combobox-input"
+                      placeholder="Digite o nome do bairro…"
+                      autocomplete="off"
+                      spellcheck="false"
+                      aria-autocomplete="list"
+                      aria-controls="bairroList"
+                    />
+                    <ul id="bairroList" class="combobox-list" role="listbox" aria-label="Bairros disponíveis"></ul>
+                  </div>
+                  <input type="hidden" id="bairro" />
                 </div>
 
                 <div class="form-group">

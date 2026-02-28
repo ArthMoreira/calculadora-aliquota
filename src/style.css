@@ -701,6 +701,97 @@ tbody tr.row-hidden {
   color: var(--c-text);
 }
 
+/* ==========================================================================
+   COMBOBOX — Bairro
+   ========================================================================== */
+.combobox {
+  position: relative;
+}
+
+.combobox-input {
+  width: 100%;
+  padding: 0.75rem 0.875rem;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  border: 1px solid var(--c-card-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-bg);
+  color: var(--c-text);
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+.combobox-input::placeholder {
+  color: var(--c-text-muted);
+  opacity: 0.8;
+}
+
+.combobox-input:hover {
+  border-color: var(--c-primary);
+}
+
+.combobox-input:focus {
+  outline: none;
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.18);
+}
+
+.combobox-input.combobox-invalid {
+  border-color: var(--c-warning);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+
+.combobox-list {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--c-surface, #31363F);
+  border: 1px solid var(--c-card-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  max-height: 220px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 200;
+  list-style: none;
+  padding: 0.25rem 0;
+  margin: 0;
+}
+
+.combobox-list.open {
+  display: block;
+}
+
+.combobox-item {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9rem;
+  color: var(--c-text);
+  cursor: pointer;
+  transition: background var(--ease), color var(--ease);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.combobox-item:hover {
+  background: var(--c-primary-light);
+  color: var(--c-primary);
+}
+
+.combobox-item.combobox-active {
+  background: var(--c-primary-light);
+  color: var(--c-primary);
+}
+
+.combobox-empty {
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--c-text-muted);
+  font-style: italic;
+  cursor: default;
+}
+
 .form-group select,
 .form-group input {
   width: 100%;
