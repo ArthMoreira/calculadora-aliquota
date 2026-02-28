@@ -3,325 +3,426 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora IPTU Nova Iguaçu</title>
-    <link rel="stylesheet" href="/src/style.css" />
+    <title>Calculadora IPTU — Nova Iguaçu</title>
+    <meta name="description" content="Calculadora de alíquota IPTU do município de Nova Iguaçu — uso interno da Prefeitura" />
   </head>
   <body>
-    <div class="container">
-      <header>
-        <div class="header-content">
-          <h1>IPTU Nova Iguaçu</h1>
-          <p class="subtitle">Calculadora baseada nas tabelas de 2017</p>
+
+    <!-- ===== NAVBAR GLASS ===== -->
+    <nav id="navbar" class="navbar" aria-label="Navegação principal">
+      <div class="navbar-inner">
+        <a href="#hero" class="navbar-brand">IPTU Nova Iguaçu</a>
+        <button id="btnMenuToggle" class="navbar-toggle" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
+        <ul id="navLinks" class="navbar-links" role="list">
+          <li><a href="#hero" class="nav-link active" data-section="hero">Início</a></li>
+          <li><a href="#secCalc" class="nav-link" data-section="secCalc">Calculadora</a></li>
+          <li><a href="#secTabelas" class="nav-link" data-section="secTabelas">Tabelas</a></li>
+          <li><a href="#secBaseLegal" class="nav-link" data-section="secBaseLegal">Base Legal</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="main-content">
+
+      <!-- ===== HERO ===== -->
+      <section id="hero" class="hero-section">
+        <div class="container">
+          <h1 class="hero-title">Calculadora de IPTU — Nova Iguaçu</h1>
+          <p class="hero-subtitle">Referência: Tabelas 2017 &nbsp;|&nbsp; Cálculo: IPTU = VVI × Alíquota</p>
+          <div class="hero-actions">
+            <a href="#secCalc" class="btn btn-primary">Abrir Calculadora</a>
+            <a href="#secTabelas" class="btn btn-outline">Ver Tabelas</a>
+          </div>
+          <p class="hero-note">As alíquotas variam conforme URG, uso do imóvel e faixa de valor venal.</p>
         </div>
-      </header>
-
-      <!-- ========== TELA 1: TABELAS ========== -->
-      <section id="screenTables">
-        <div class="nav-buttons">
-          <button class="btn-primary" onclick="openCalculator()">Abrir Calculadora</button>
-        </div>
-
-        <div class="tables-grid">
-          <!-- TABELA 1 - TERRITORIAL -->
-          <div class="card">
-            <h2>Tabela 1 — Territorial (por Bairro/URG)</h2>
-            <p class="card-description">Uso: terreno/lote sem construção. A alíquota varia de 1,0% a 2,0% conforme a região.</p>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>URG</th>
-                    <th>Bairros</th>
-                    <th>Alíquota</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td rowspan="3">CENTRO</td>
-                    <td>Centro, Kaonze, Califórnia, Da Luz, Rancho Novo, Vila Nova, Juscelino, Chacrinha</td>
-                    <td><strong>2,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>Santa Eugênia, Moquetá, Jardim Tropical, Prata, Jardim Iguaçu</td>
-                    <td><strong>1,5%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>Engenho Pequeno, Vila Operária, Viga</td>
-                    <td><strong>1,2%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>POSSE</td>
-                    <td>Posse, Ponto Chic, Cerâmica, Três Corações, Kennedy/Caioabá, Botafogo, Carmary, Nova América, Ambaí, Parque Flora</td>
-                    <td><strong>1,2%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>COMENDADOR SOARES</td>
-                    <td>Comendador Soares, Jardim Alvorada, Danon, Rosa dos Ventos, Jd Nova Era, Jd Palmares, Jd Pernambuco, Ouro Verde</td>
-                    <td><strong>1,2%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>CABUÇU</td>
-                    <td>Cabuçu, Valverde, Palhada, Marapicu, Ipiranga, Lagoinha, Campo Alegre</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>KM 32</td>
-                    <td>KM 32, Jardim Guandu, Paraíso, Prados Verdes</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>AUSTIN</td>
-                    <td>Austin, Riachão, Cacuia, Rodilândia, Inconfidência, Carlos Sampaio, Vila Guimarães, Tinguazinho</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>VILA DE CAVA</td>
-                    <td>Vila de Cava, Santa Rita, Corumbá, Rancho Fundo, Figueiras, Iguaçu Velho</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>MIGUEL COUTO</td>
-                    <td>Miguel Couto, Parque Ambaí, Grama, Boa Esperança, Geneciano</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                  <tr>
-                    <td>TINGUÁ</td>
-                    <td>Tinguá, Adrianópolis, Rio D'Ouro, Montevidéu, Jaceruba</td>
-                    <td><strong>1,0%</strong></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- TABELA 2 - ZONA ESPECIAL TERRITORIAL -->
-          <div class="card">
-            <h2>Tabela 2 — Territorial em Zona Especial (ZE)</h2>
-            <p class="card-description">Uso: terreno/lote + ZE = SIM. A alíquota pode ser 1,8% ou 2,0% dependendo do bairro/trecho.</p>
-            <div class="table-wrapper">
-              <table>
-                <thead>
-                  <tr>
-                    <th>URG</th>
-                    <th>Alíquota</th>
-                    <th>Bairros/trechos (resumo)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Centro (ZE)</td>
-                    <td><strong>2,0%</strong></td>
-                    <td>Centro, Califórnia, Rancho Novo, Vila Nova, Moquetá, Jardim Tropical, Prata</td>
-                  </tr>
-                  <tr>
-                    <td>Centro (ZE)</td>
-                    <td><strong>1,8%</strong></td>
-                    <td>Jardim Iguaçu</td>
-                  </tr>
-                  <tr>
-                    <td>Posse (ZE)</td>
-                    <td><strong>1,8%</strong></td>
-                    <td>Posse, Cerâmica, Kennedy/Caioaba</td>
-                  </tr>
-                  <tr>
-                    <td>Comendador Soares (ZE)</td>
-                    <td><strong>1,8%</strong></td>
-                    <td>Comendador Soares, Rosa dos Ventos</td>
-                  </tr>
-                  <tr>
-                    <td>Austin (ZE)</td>
-                    <td><strong>1,8%</strong></td>
-                    <td>Riachão, Cacuia, Rodilândia, Inconfidência</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="info-text">Zona Especial só se aplica a imóveis TERRITORIAL cujo logradouro/trecho está cadastrado como ZE.</p>
-          </div>
-
-          <!-- TABELA 3 - PREDIAL RESIDENCIAL -->
-          <div class="card">
-            <h2>Tabela 3 — Predial Residencial (por URG e Valor Venal)</h2>
-            <p class="card-description">Uso: imóvel construído para moradia. A alíquota varia de 0,75% a 1,20% conforme região e valor venal.</p>
-            <div class="table-wrapper">
-              <table class="table-predial">
-                <thead>
-                  <tr>
-                    <th>URG</th>
-                    <th>Até R$ 25.000</th>
-                    <th>R$ 25.001 a 50.000</th>
-                    <th>R$ 50.001 a 100.000</th>
-                    <th>Acima de R$ 100.000</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>CENTRO</td>
-                    <td>0,90%</td>
-                    <td>1,00%</td>
-                    <td>1,10%</td>
-                    <td>1,20%</td>
-                  </tr>
-                  <tr>
-                    <td>POSSE / COM. SOARES</td>
-                    <td>0,85%</td>
-                    <td>0,95%</td>
-                    <td>1,00%</td>
-                    <td>1,10%</td>
-                  </tr>
-                  <tr>
-                    <td>AUSTIN / CABUÇU / KM 32 / VILA DE CAVA / MIGUEL COUTO</td>
-                    <td>0,80%</td>
-                    <td>0,90%</td>
-                    <td>0,95%</td>
-                    <td>1,00%</td>
-                  </tr>
-                  <tr>
-                    <td>TINGUÁ</td>
-                    <td>0,75%</td>
-                    <td>0,85%</td>
-                    <td>0,90%</td>
-                    <td>1,00%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- TABELA 4 - PREDIAL COMERCIAL/INDUSTRIAL -->
-          <div class="card">
-            <h2>Tabela 4 — Predial Comercial / Industrial (por URG e Valor Venal)</h2>
-            <p class="card-description">Uso: imóvel construído para comércio ou indústria. A alíquota varia de 0,85% a 1,50% conforme região e valor venal.</p>
-            <div class="table-wrapper">
-              <table class="table-predial">
-                <thead>
-                  <tr>
-                    <th>URG</th>
-                    <th>Até R$ 30.000</th>
-                    <th>R$ 30.001 a 60.000</th>
-                    <th>R$ 60.001 a 100.000</th>
-                    <th>Acima de R$ 100.000</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>CENTRO</td>
-                    <td>1,00%</td>
-                    <td>1,05%</td>
-                    <td>1,10%</td>
-                    <td>1,50%</td>
-                  </tr>
-                  <tr>
-                    <td>POSSE / COM. SOARES</td>
-                    <td>0,95%</td>
-                    <td>1,00%</td>
-                    <td>1,05%</td>
-                    <td>1,45%</td>
-                  </tr>
-                  <tr>
-                    <td>AUSTIN / CABUÇU / KM 32 / VILA DE CAVA / MIGUEL COUTO</td>
-                    <td>0,90%</td>
-                    <td>0,95%</td>
-                    <td>1,00%</td>
-                    <td>1,40%</td>
-                  </tr>
-                  <tr>
-                    <td>TINGUÁ</td>
-                    <td>0,85%</td>
-                    <td>0,90%</td>
-                    <td>0,95%</td>
-                    <td>1,35%</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="info-text">Para Comercial/Industrial em Zona Especial, verifique se o logradouro/trecho está na lista de ZE (pode haver variações).</p>
-          </div>
-        </div>
-
-        <!-- Base Legal -->
-        <div id="baseLegal" class="base-legal-card"></div>
       </section>
 
-      <!-- ========== TELA 2: CALCULADORA ========== -->
-      <section id="screenCalc" class="hidden">
-        <div class="nav-buttons">
-          <button class="btn-secondary" onclick="backToTables()">← Voltar às Tabelas</button>
-        </div>
-
-        <div class="calc-container">
-          <div class="card calc-form">
-            <h2>Calculadora de IPTU</h2>
-            <form onsubmit="event.preventDefault(); calcular();">
-              <div class="form-group">
-                <label for="bairro">Bairro:</label>
-                <select id="bairro" required>
-                  <option value="">Selecione...</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="tipo">Tipo de Imóvel:</label>
-                <select id="tipo" required>
-                  <option value="TERRITORIAL">Territorial</option>
-                  <option value="RESIDENCIAL">Residencial</option>
-                  <option value="COMERCIAL">Comercial</option>
-                  <option value="INDUSTRIAL">Industrial</option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="valor">Valor Venal (R$):</label>
-                <input type="text" id="valor" placeholder="Ex: 104.280,08" required />
-              </div>
-
-              <div class="form-group">
-                <label for="ze">Zona Especial (ZE):</label>
-                <select id="ze">
-                  <option value="NAO">Não</option>
-                  <option value="SIM">Sim</option>
-                </select>
-              </div>
-
-              <button type="submit" id="btnCalc" class="btn-primary btn-full">Calcular</button>
-            </form>
+      <!-- ===== ATALHOS (CARDS) ===== -->
+      <section id="secAtalhos" class="section">
+        <div class="container">
+          <h2 class="section-title">Acesso rápido</h2>
+          <div class="shortcuts-grid">
+            <a href="#secCalc" class="shortcut-card">
+              <h3>Calcular IPTU</h3>
+              <p>Informe bairro, tipo e valor venal para obter a alíquota e o imposto devido.</p>
+            </a>
+            <a href="#secTabelas" class="shortcut-card" data-activate-tab="tab1">
+              <h3>Tabelas de Alíquotas</h3>
+              <p>Consulte as tabelas Territorial, Zona Especial, Predial Residencial e Comercial.</p>
+            </a>
+            <a href="#secTabelas" class="shortcut-card" data-activate-tab="tab2">
+              <h3>Zona Especial (ZE)</h3>
+              <p>Alíquotas diferenciadas para logradouros cadastrados em Zona Especial.</p>
+            </a>
+            <a href="#secBaseLegal" class="shortcut-card">
+              <h3>Base Legal</h3>
+              <p>Fundamentação no Código Tributário Municipal — Art. 18.</p>
+            </a>
           </div>
+        </div>
+      </section>
 
-          <!-- RESULTADO -->
-          <div id="result" class="hidden">
-            <div class="result-cards">
-              <div class="result-card">
-                <span class="result-label">Valor Venal</span>
-                <span id="vviValue" class="result-value">—</span>
-              </div>
-              <div class="result-card">
-                <span class="result-label">Alíquota</span>
-                <span id="aliqValue" class="result-value">—</span>
-              </div>
-              <div class="result-card highlight">
-                <span class="result-label">IPTU Anual</span>
-                <span id="iptuValue" class="result-value">—</span>
-              </div>
+      <!-- ===== CALCULADORA ===== -->
+      <section id="secCalc" class="section section-alt">
+        <div class="container">
+          <h2 class="section-title">Calculadora de IPTU</h2>
+
+          <div class="calc-layout" id="calcLayout">
+            <!-- Formulário -->
+            <div class="card calc-form-card">
+              <h3 class="card-title">Dados do Imóvel</h3>
+              <form id="formCalc" novalidate>
+                <div class="form-group">
+                  <label for="tipo">Tipo de Imóvel</label>
+                  <select id="tipo" required aria-required="true">
+                    <option value="TERRITORIAL">Territorial</option>
+                    <option value="RESIDENCIAL">Predial Residencial</option>
+                    <option value="COMERCIAL">Predial Comercial</option>
+                    <option value="INDUSTRIAL">Predial Industrial</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="bairro">Bairro</label>
+                  <select id="bairro" required aria-required="true">
+                    <option value="">Selecione o bairro…</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="ze">Zona Especial (ZE)</label>
+                  <select id="ze" aria-label="O imóvel está em Zona Especial?">
+                    <option value="NAO">Não</option>
+                    <option value="SIM">Sim</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="valor">Valor Venal (R$)</label>
+                  <input type="text" id="valor" inputmode="decimal" placeholder="Ex: 104.280,08" required aria-required="true" autocomplete="off" />
+                </div>
+
+                <div class="form-actions">
+                  <button type="submit" id="btnCalc" class="btn btn-primary btn-full">Calcular</button>
+                  <button type="button" id="btnLimpar" class="btn btn-ghost btn-full">Limpar</button>
+                </div>
+              </form>
             </div>
 
-            <div class="card result-details">
-              <div class="badge-container">
-                <span id="badge" class="badgeOk">OK</span>
+            <!-- Resultado (sticky no desktop) -->
+            <div class="calc-result-col">
+              <div id="result" class="card result-card-wrapper hidden">
+                <h3 class="card-title">Resultado</h3>
+
+                <div class="result-grid">
+                  <div class="result-item">
+                    <span class="result-label">Valor Venal</span>
+                    <span id="vviValue" class="result-value">—</span>
+                  </div>
+                  <div class="result-item">
+                    <span class="result-label">Alíquota</span>
+                    <span id="aliqValue" class="result-value">—</span>
+                  </div>
+                  <div class="result-item result-highlight">
+                    <span class="result-label">IPTU Anual</span>
+                    <span id="iptuValue" class="result-value">—</span>
+                  </div>
+                </div>
+
+                <div class="badge-container">
+                  <span id="badge" class="badge badge-ok">OK</span>
+                </div>
+
+                <details class="result-details">
+                  <summary>Detalhes do Cálculo</summary>
+                  <div>
+                    <pre id="calcText"></pre>
+                  </div>
+                </details>
+
+                <details class="result-details">
+                  <summary>Fundamentação</summary>
+                  <div>
+                    <p id="whyText"></p>
+                  </div>
+                </details>
               </div>
-              <h3>Detalhes do Cálculo</h3>
-              <pre id="calcText"></pre>
-              <h3>Explicação</h3>
-              <p id="whyText"></p>
             </div>
           </div>
         </div>
       </section>
 
-      <footer>
-        <p>Calculadora IPTU Nova Iguaçu | Referência: Tabelas 2017</p>
-        <button class="btn-top" onclick="scrollToTop()">↑ Topo</button>
-      </footer>
-    </div>
+      <!-- ===== TABELAS ===== -->
+      <section id="secTabelas" class="section">
+        <div class="container">
+          <h2 class="section-title">Tabelas de Alíquotas</h2>
+
+          <!-- Tabs -->
+          <div class="tabs" role="tablist" aria-label="Selecionar tabela de alíquotas">
+            <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-tab1" id="tab1" type="button">Territorial</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tab2" id="tab2" type="button">Zona Especial</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tab3" id="tab3" type="button">Residencial</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tab4" id="tab4" type="button">Comercial / Industrial</button>
+          </div>
+
+          <!-- TAB 1: Territorial -->
+          <div class="tab-panel active" role="tabpanel" id="panel-tab1" aria-labelledby="tab1">
+            <div class="card">
+              <h3 class="card-title">Tabela 1 — Territorial (por Bairro / URG)</h3>
+              <p class="card-desc">Terreno ou lote sem construção. A alíquota varia de 1,0% a 2,0% conforme a região.</p>
+
+              <div class="table-search">
+                <label for="searchBairro" class="sr-only">Buscar bairro na tabela</label>
+                <input type="text" id="searchBairro" placeholder="Filtrar por bairro ou URG…" autocomplete="off" />
+              </div>
+
+              <div class="table-wrapper">
+                <p class="scroll-hint" aria-hidden="true">Arraste para ver mais colunas</p>
+                <table id="tabelaTerritorial">
+                  <thead>
+                    <tr>
+                      <th>URG</th>
+                      <th>Bairros</th>
+                      <th>Alíquota</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td rowspan="3">CENTRO</td>
+                      <td>Centro, Kaonze, Califórnia, Da Luz, Rancho Novo, Vila Nova, Juscelino, Chacrinha</td>
+                      <td><strong>2,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Santa Eugênia, Moquetá, Jardim Tropical, Prata, Jardim Iguaçu</td>
+                      <td><strong>1,5%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>Engenho Pequeno, Vila Operária, Viga</td>
+                      <td><strong>1,2%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>POSSE</td>
+                      <td>Posse, Ponto Chic, Cerâmica, Três Corações, Kennedy/Caioabá, Botafogo, Carmary, Nova América, Ambaí, Parque Flora</td>
+                      <td><strong>1,2%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>COMENDADOR SOARES</td>
+                      <td>Comendador Soares, Jardim Alvorada, Danon, Rosa dos Ventos, Jd Nova Era, Jd Palmares, Jd Pernambuco, Ouro Verde</td>
+                      <td><strong>1,2%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>CABUÇU</td>
+                      <td>Cabuçu, Valverde, Palhada, Marapicu, Ipiranga, Lagoinha, Campo Alegre</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>KM 32</td>
+                      <td>KM 32, Jardim Guandu, Paraíso, Prados Verdes</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>AUSTIN</td>
+                      <td>Austin, Riachão, Cacuia, Rodilândia, Inconfidência, Carlos Sampaio, Vila Guimarães, Tinguazinho</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>VILA DE CAVA</td>
+                      <td>Vila de Cava, Santa Rita, Corumbá, Rancho Fundo, Figueiras, Iguaçu Velho</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>MIGUEL COUTO</td>
+                      <td>Miguel Couto, Parque Ambaí, Grama, Boa Esperança, Geneciano</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                    <tr>
+                      <td>TINGUÁ</td>
+                      <td>Tinguá, Adrianópolis, Rio D'Ouro, Montevidéu, Jaceruba</td>
+                      <td><strong>1,0%</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: Zona Especial -->
+          <div class="tab-panel" role="tabpanel" id="panel-tab2" aria-labelledby="tab2" hidden>
+            <div class="card">
+              <h3 class="card-title">Tabela 2 — Territorial em Zona Especial (ZE)</h3>
+              <p class="card-desc">Terreno/lote com Zona Especial = SIM. Alíquota de 1,8% ou 2,0% conforme bairro/trecho.</p>
+              <div class="table-wrapper">
+                <p class="scroll-hint" aria-hidden="true">Arraste para ver mais colunas</p>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>URG</th>
+                      <th>Alíquota</th>
+                      <th>Bairros / trechos</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Centro (ZE)</td>
+                      <td><strong>2,0%</strong></td>
+                      <td>Centro, Califórnia, Rancho Novo, Vila Nova, Moquetá, Jardim Tropical, Prata</td>
+                    </tr>
+                    <tr>
+                      <td>Centro (ZE)</td>
+                      <td><strong>1,8%</strong></td>
+                      <td>Jardim Iguaçu</td>
+                    </tr>
+                    <tr>
+                      <td>Posse (ZE)</td>
+                      <td><strong>1,8%</strong></td>
+                      <td>Posse, Cerâmica, Kennedy/Caioaba</td>
+                    </tr>
+                    <tr>
+                      <td>Comendador Soares (ZE)</td>
+                      <td><strong>1,8%</strong></td>
+                      <td>Comendador Soares, Rosa dos Ventos</td>
+                    </tr>
+                    <tr>
+                      <td>Austin (ZE)</td>
+                      <td><strong>1,8%</strong></td>
+                      <td>Riachão, Cacuia, Rodilândia, Inconfidência</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="note">Zona Especial aplica-se somente a imóveis Territorial cujo logradouro/trecho está cadastrado como ZE.</p>
+            </div>
+          </div>
+
+          <!-- TAB 3: Predial Residencial -->
+          <div class="tab-panel" role="tabpanel" id="panel-tab3" aria-labelledby="tab3" hidden>
+            <div class="card">
+              <h3 class="card-title">Tabela 3 — Predial Residencial (por URG e Valor Venal)</h3>
+              <p class="card-desc">Imóvel construído para moradia. Alíquota de 0,75% a 1,20% conforme região e valor venal.</p>
+              <div class="table-wrapper">
+                <p class="scroll-hint" aria-hidden="true">Arraste para ver mais colunas</p>
+                <table class="table-predial">
+                  <thead>
+                    <tr>
+                      <th>URG</th>
+                      <th>Até R$ 25.000</th>
+                      <th>R$ 25.001 a 50.000</th>
+                      <th>R$ 50.001 a 100.000</th>
+                      <th>Acima de R$ 100.000</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>CENTRO</td>
+                      <td>0,90%</td>
+                      <td>1,00%</td>
+                      <td>1,10%</td>
+                      <td>1,20%</td>
+                    </tr>
+                    <tr>
+                      <td>POSSE / COM. SOARES</td>
+                      <td>0,85%</td>
+                      <td>0,95%</td>
+                      <td>1,00%</td>
+                      <td>1,10%</td>
+                    </tr>
+                    <tr>
+                      <td>AUSTIN / CABUÇU / KM 32 / VILA DE CAVA / MIGUEL COUTO</td>
+                      <td>0,80%</td>
+                      <td>0,90%</td>
+                      <td>0,95%</td>
+                      <td>1,00%</td>
+                    </tr>
+                    <tr>
+                      <td>TINGUÁ</td>
+                      <td>0,75%</td>
+                      <td>0,85%</td>
+                      <td>0,90%</td>
+                      <td>1,00%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: Predial Comercial/Industrial -->
+          <div class="tab-panel" role="tabpanel" id="panel-tab4" aria-labelledby="tab4" hidden>
+            <div class="card">
+              <h3 class="card-title">Tabela 4 — Predial Comercial / Industrial (por URG e Valor Venal)</h3>
+              <p class="card-desc">Imóvel para comércio ou indústria. Alíquota de 0,85% a 1,50% conforme região e valor venal.</p>
+              <div class="table-wrapper">
+                <p class="scroll-hint" aria-hidden="true">Arraste para ver mais colunas</p>
+                <table class="table-predial">
+                  <thead>
+                    <tr>
+                      <th>URG</th>
+                      <th>Até R$ 30.000</th>
+                      <th>R$ 30.001 a 60.000</th>
+                      <th>R$ 60.001 a 100.000</th>
+                      <th>Acima de R$ 100.000</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>CENTRO</td>
+                      <td>1,00%</td>
+                      <td>1,05%</td>
+                      <td>1,10%</td>
+                      <td>1,50%</td>
+                    </tr>
+                    <tr>
+                      <td>POSSE / COM. SOARES</td>
+                      <td>0,95%</td>
+                      <td>1,00%</td>
+                      <td>1,05%</td>
+                      <td>1,45%</td>
+                    </tr>
+                    <tr>
+                      <td>AUSTIN / CABUÇU / KM 32 / VILA DE CAVA / MIGUEL COUTO</td>
+                      <td>0,90%</td>
+                      <td>0,95%</td>
+                      <td>1,00%</td>
+                      <td>1,40%</td>
+                    </tr>
+                    <tr>
+                      <td>TINGUÁ</td>
+                      <td>0,85%</td>
+                      <td>0,90%</td>
+                      <td>0,95%</td>
+                      <td>1,35%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="note">Para Comercial/Industrial em Zona Especial, verifique se o logradouro/trecho está na lista de ZE (pode haver variações).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== BASE LEGAL ===== -->
+      <section id="secBaseLegal" class="section section-alt">
+        <div class="container">
+          <h2 class="section-title">Base Legal</h2>
+          <div class="card base-legal-card">
+            <h3 class="card-title" id="baseLegalTitulo"></h3>
+            <p class="base-legal-texto" id="baseLegalTexto"></p>
+            <blockquote class="base-legal-quote" id="baseLegalRef"></blockquote>
+            <p class="base-legal-rodape">Referência: Tabelas 2017</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="container">
+        <p>Calculadora IPTU Nova Iguaçu — Referência: Tabelas 2017</p>
+        <a href="#hero" class="footer-top-link">Voltar ao topo</a>
+      </div>
+    </footer>
 
     <script type="module" src="/src/main.js"></script>
   </body>

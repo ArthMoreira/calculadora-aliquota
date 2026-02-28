@@ -327,17 +327,6 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
   var vvi = parseValorBR(valor);
   var iptu = !isNaN(vvi) && vvi >= 0 ? vvi * taxaDecimal : NaN;
 
-  function formatBRL(n) {
-    try {
-      return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    } catch (e) {
-      return "R$ " + n.toFixed(2).replace(".", ",");
-    }
-  }
-  function formatPct(t) {
-    return (t * 100).toFixed(2).replace(".", ",") + "%";
-  }
-
   var calculoTexto = "";
   if (!isNaN(vvi) && !isNaN(iptu)) {
     calculoTexto =
@@ -345,7 +334,7 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
       "IPTU = " +
       formatBRL(vvi) +
       " × " +
-      formatPct(taxaDecimal) +
+      formatPctBR(taxaDecimal) +
       "\n" +
       "IPTU = " +
       formatBRL(iptu);
@@ -358,7 +347,7 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
 
   return {
     aliquotaDecimal: taxaDecimal,
-    aliquota: formatPct(taxaDecimal),
+    aliquota: formatPctBR(taxaDecimal),
     iptu: !isNaN(iptu) ? formatBRL(iptu) : "—",
     valorVenal: !isNaN(vvi) ? formatBRL(vvi) : "—",
     texto: textoCompleto,
@@ -367,11 +356,15 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
   };
 }
 
-// === Cole isso no final do src/iptu.js (ou perto das funções "para o site") ===
-
-// Formatações (reutilizáveis)
+// ===============================
+// FORMATAÇÕES (reutilizáveis no módulo)
+// ===============================
 function formatBRL(n) {
-  return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  try {
+    return n.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  } catch (_) {
+    return "R$ " + Number(n).toFixed(2).replace(".", ",");
+  }
 }
 function formatPctBR(taxaDecimal, casas = 2) {
   return (taxaDecimal * 100).toFixed(casas).replace(".", ",") + "%";
