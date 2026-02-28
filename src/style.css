@@ -1,7 +1,8 @@
 /* ==========================================================================
-   IPTU Nova Iguaçu — Design System Institucional (Dark Theme)
+   IPTU Nova Iguaçu — Design System Institucional
    ==========================================================================
-   Paleta: #222831 · #31363F · #76ABAE · #EEEEEE
+   Temas: dark (#222831/#31363F/#76ABAE/#EEEEEE)
+          light (#FFFFFF/#CFD8E2/#BCCCDC/#34699A)
    Sem ícones. Sem frameworks. CSS puro + variáveis.
    ========================================================================== */
 
@@ -15,47 +16,14 @@
 }
 
 /* ---------- TOKENS (Design Tokens) ---------- */
+
+/* Valores fixos — independentes do tema */
 :root {
-  /* === Paleta oficial === */
-  --color-bg-primary:    #222831;
-  --color-bg-secondary:  #292d35;
-  --color-surface:       #31363F;
-  --color-text-primary:  #EEEEEE;
-  --color-text-secondary: rgba(238, 238, 238, 0.62);
-  --color-accent:        #76ABAE;
-  --color-accent-hover:  #8dbfc2;
-  --color-border:        rgba(238, 238, 238, 0.09);
-  --color-muted:         rgba(238, 238, 238, 0.4);
-
-  /* Cor de destaque — teal sofisticado */
-  --c-primary:           #76ABAE;
-  --c-primary-hover:     #8dbfc2;
-  --c-primary-light:     rgba(118, 171, 174, 0.14);
-  --c-primary-50:        rgba(118, 171, 174, 0.07);
-
-  /* Superfícies — grafite profundo, nunca preto puro */
-  --c-bg:                #222831;
-  --c-bg-alt:            #292d35;
-  --c-card:              #31363F;
-  --c-card-border:       rgba(238, 238, 238, 0.09);
-  --c-card-hover-border: #76ABAE;
-
-  /* Texto — hierarquia clara sobre fundo escuro */
-  --c-text:              #EEEEEE;
-  --c-text-muted:        rgba(238, 238, 238, 0.62);
-  --c-text-inv:          #222831;
-
   /* Feedback */
   --c-success:    #22c55e;
   --c-success-bg: rgba(34, 197, 94, 0.1);
   --c-warning:    #f59e0b;
   --c-warning-bg: rgba(245, 158, 11, 0.1);
-
-  /* Sombras — discretas, sem exagero */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
-  --shadow:    0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 18px -3px rgba(0, 0, 0, 0.45), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
 
   /* Bordas */
   --radius:    12px;
@@ -69,8 +37,78 @@
   --font:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "Cascadia Code", "Fira Code", "JetBrains Mono", Consolas, monospace;
 
-  /* Navbar height (para offset de scroll) */
+  /* Navbar height */
   --navbar-h: 60px;
+}
+
+/* ===== TEMA ESCURO ===== */
+[data-theme="dark"] {
+  --c-primary:           #76ABAE;
+  --c-primary-hover:     #8dbfc2;
+  --c-primary-light:     rgba(118, 171, 174, 0.14);
+  --c-primary-50:        rgba(118, 171, 174, 0.07);
+
+  --c-bg:                #222831;
+  --c-bg-alt:            #292d35;
+  --c-card:              #31363F;
+  --c-card-border:       rgba(238, 238, 238, 0.09);
+  --c-card-hover-border: #76ABAE;
+
+  --c-text:              #EEEEEE;
+  --c-text-muted:        rgba(238, 238, 238, 0.62);
+  --c-text-inv:          #1a1e24;
+
+  --c-navbar-bg:         rgba(34, 40, 49, 0.72);
+  --c-navbar-border:     rgba(49, 54, 63, 0.8);
+  --c-navbar-mobile:     rgba(34, 40, 49, 0.97);
+  --c-navbar-mobile-border: rgba(49, 54, 63, 0.9);
+
+  --c-hero-from:         #1d2229;
+  --c-hero-mid:          #222831;
+  --c-hero-to:           #2b3039;
+
+  --c-table-header:      #272c33;
+  --c-focus-ring:        rgba(118, 171, 174, 0.18);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow:    0 2px 4px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.45), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 18px -3px rgba(0, 0, 0, 0.45), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== TEMA CLARO ===== */
+[data-theme="light"] {
+  --c-primary:           #34699A;
+  --c-primary-hover:     #2b577f;
+  --c-primary-light:     rgba(52, 105, 154, 0.12);
+  --c-primary-50:        rgba(52, 105, 154, 0.06);
+
+  --c-bg:                #FFFFFF;
+  --c-bg-alt:            #CFD8E2;
+  --c-card:              #FFFFFF;
+  --c-card-border:       #BCCCDC;
+  --c-card-hover-border: #34699A;
+
+  --c-text:              #1F2933;
+  --c-text-muted:        #9AA6B2;
+  --c-text-inv:          #FFFFFF;
+
+  --c-navbar-bg:         rgba(255, 255, 255, 0.88);
+  --c-navbar-border:     rgba(188, 204, 220, 0.8);
+  --c-navbar-mobile:     rgba(255, 255, 255, 0.98);
+  --c-navbar-mobile-border: rgba(188, 204, 220, 0.9);
+
+  --c-hero-from:         #FFFFFF;
+  --c-hero-mid:          #FFFFFF;
+  --c-hero-to:           #FFFFFF;
+
+  --c-table-header:      #C5CED8;
+  --c-focus-ring:        rgba(52, 105, 154, 0.25);
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow:    0 2px 4px rgba(0, 0, 0, 0.10), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 8px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 18px -3px rgba(0, 0, 0, 0.12), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
 }
 
 /* ---------- BASE ---------- */
@@ -88,6 +126,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 220ms ease, color 220ms ease;
 }
 
 /* Screen-reader only */
@@ -125,12 +164,12 @@ body {
   right: 0;
   height: var(--navbar-h);
   z-index: 100;
-  background: rgba(34, 40, 49, 0.72);
+  background: var(--c-navbar-bg);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid rgba(49, 54, 63, 0.8);
+  border-bottom: 1px solid var(--c-navbar-border);
   box-shadow: var(--shadow-sm);
-  transition: box-shadow var(--ease);
+  transition: background 220ms ease, border-color 220ms ease, box-shadow var(--ease);
 }
 
 .navbar.scrolled {
@@ -210,6 +249,29 @@ body {
   background: var(--c-primary-light);
 }
 
+/* ===== BOTÃO ALTERNÂNCIA DE TEMA ===== */
+.theme-toggle {
+  background: transparent;
+  border: 1px solid var(--c-card-border);
+  border-radius: var(--radius-xs);
+  padding: 0.35rem 0.75rem;
+  font-family: var(--font);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--c-text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  margin-left: 0.5rem;
+  transition: color var(--ease), border-color var(--ease), background var(--ease);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--c-text);
+  border-color: var(--c-primary);
+  background: var(--c-primary-50);
+}
+
 /* Focus visible global */
 :focus-visible {
   outline: 2px solid var(--c-primary);
@@ -224,10 +286,11 @@ body {
 }
 
 .hero-section {
-  background: linear-gradient(160deg, #1d2229 0%, #222831 55%, #2b3039 100%);
+  background: linear-gradient(160deg, var(--c-hero-from) 0%, var(--c-hero-mid) 55%, var(--c-hero-to) 100%);
   color: var(--c-text);
   padding: 4rem 0 3.5rem;
   text-align: center;
+  transition: background 220ms ease;
 }
 
 .hero-title {
@@ -500,7 +563,7 @@ body {
 .table-search input:focus {
   outline: none;
   border-color: var(--c-primary);
-  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.18);
+  box-shadow: 0 0 0 3px var(--c-focus-ring);
 }
 
 .table-search input::placeholder {
@@ -538,7 +601,7 @@ thead {
 }
 
 th {
-  background: #272c33;
+  background: var(--c-table-header);
   color: var(--c-text);
   padding: 0.75rem 0.875rem;
   text-align: left;
@@ -732,7 +795,7 @@ tbody tr.row-hidden {
 .combobox-input:focus {
   outline: none;
   border-color: var(--c-primary);
-  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.18);
+  box-shadow: 0 0 0 3px var(--c-focus-ring);
 }
 
 .combobox-input.combobox-invalid {
@@ -746,7 +809,7 @@ tbody tr.row-hidden {
   top: calc(100% + 4px);
   left: 0;
   right: 0;
-  background: var(--c-surface, #31363F);
+  background: var(--c-card);
   border: 1px solid var(--c-card-border);
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-md);
@@ -833,7 +896,7 @@ tbody tr.row-hidden {
 .form-group input:focus {
   outline: none;
   border-color: var(--c-primary);
-  box-shadow: 0 0 0 3px rgba(118, 171, 174, 0.18);
+  box-shadow: 0 0 0 3px var(--c-focus-ring);
 }
 
 .form-actions {
@@ -989,6 +1052,11 @@ tbody tr.row-hidden {
   white-space: pre-line;
 }
 
+/* PDF Button */
+.pdf-btn-container {
+  margin-top: 1rem;
+}
+
 /* ==========================================================================
    BASE LEGAL
    ========================================================================== */
@@ -1067,10 +1135,10 @@ tbody tr.row-hidden {
     left: 0;
     right: 0;
     flex-direction: column;
-    background: rgba(34, 40, 49, 0.97);
+    background: var(--c-navbar-mobile);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(49, 54, 63, 0.9);
+    border-bottom: 1px solid var(--c-navbar-mobile-border);
     box-shadow: var(--shadow-md);
     padding: 0.5rem 1rem 1rem;
     gap: 0;
@@ -1083,11 +1151,24 @@ tbody tr.row-hidden {
   .nav-link {
     display: block;
     padding: 0.75rem 0.5rem;
-    border-bottom: 1px solid rgba(238, 238, 238, 0.07);
+    border-bottom: 1px solid var(--c-card-border);
   }
 
   .nav-link:last-child {
     border-bottom: none;
+  }
+
+  .nav-theme-item {
+    border-top: 1px solid var(--c-card-border);
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+  }
+
+  .nav-theme-item .theme-toggle {
+    margin-left: 0;
+    width: 100%;
+    text-align: left;
+    padding: 0.625rem 0.5rem;
   }
 
   .hero-section {
@@ -1153,4 +1234,143 @@ tbody tr.row-hidden {
     padding: 0.625rem 1rem;
     font-size: 0.875rem;
   }
+}
+
+/* ==========================================================================
+   LIGHT THEME — Overrides específicos
+   Card da Calculadora e Base Legal com fundo #34699A
+   ========================================================================== */
+[data-theme="light"] .calc-form-card {
+  background: #34699A;
+  border-color: #2b577f;
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .card-title,
+[data-theme="light"] .calc-form-card .card-desc {
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .form-group label {
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .form-group select,
+[data-theme="light"] .calc-form-card .form-group input,
+[data-theme="light"] .calc-form-card .combobox-input {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .form-group select option {
+  background: #34699A;
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .form-group input::placeholder,
+[data-theme="light"] .calc-form-card .combobox-input::placeholder {
+  color: rgba(240, 244, 248, 0.6);
+}
+
+[data-theme="light"] .calc-form-card .form-group select:focus,
+[data-theme="light"] .calc-form-card .form-group input:focus,
+[data-theme="light"] .calc-form-card .combobox-input:focus {
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+}
+
+[data-theme="light"] .calc-form-card .form-group select:hover,
+[data-theme="light"] .calc-form-card .form-group input:hover,
+[data-theme="light"] .calc-form-card .combobox-input:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+[data-theme="light"] .calc-form-card .combobox-list {
+  background: #2b577f;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+[data-theme="light"] .calc-form-card .combobox-item {
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .calc-form-card .combobox-item:hover,
+[data-theme="light"] .calc-form-card .combobox-item.combobox-active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .calc-form-card .combobox-empty {
+  color: rgba(240, 244, 248, 0.6);
+}
+
+[data-theme="light"] .calc-form-card .btn-primary {
+  background: #FFFFFF;
+  color: #34699A;
+}
+
+[data-theme="light"] .calc-form-card .btn-primary:hover,
+[data-theme="light"] .calc-form-card .btn-primary:focus-visible {
+  background: #FFFFFF;
+  color: #2b577f;
+}
+
+[data-theme="light"] .calc-form-card .btn-ghost {
+  background: transparent;
+  color: #F0F4F8;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+[data-theme="light"] .calc-form-card .btn-ghost:hover,
+[data-theme="light"] .calc-form-card .btn-ghost:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme="light"] .urg-highlight {
+  background-color: rgba(52, 105, 154, 0.06);
+}
+
+[data-theme="light"] .urg-highlight:hover {
+  background-color: rgba(52, 105, 154, 0.10);
+}
+
+/* Base Legal card */
+[data-theme="light"] .base-legal-card {
+  background: #34699A;
+  border-color: #2b577f;
+  border-left-color: #F0F4F8;
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .base-legal-card .card-title {
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .base-legal-texto {
+  color: #F0F4F8;
+}
+
+[data-theme="light"] .base-legal-quote {
+  background: rgba(255, 255, 255, 0.1);
+  border-left-color: rgba(255, 255, 255, 0.5);
+  color: rgba(240, 244, 248, 0.9);
+}
+
+[data-theme="light"] .base-legal-rodape {
+  color: rgba(240, 244, 248, 0.65);
+}
+
+/* Fix: btn-outline / btn-ghost hover contrast no tema claro */
+[data-theme="light"] .btn-outline:hover,
+[data-theme="light"] .btn-outline:focus-visible {
+  background: var(--c-primary);
+  color: #FFFFFF;
+}
+
+[data-theme="light"] .btn-ghost:hover,
+[data-theme="light"] .btn-ghost:focus-visible {
+  color: var(--c-primary);
 }

@@ -327,6 +327,10 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
   var vvi = parseValorBR(valor);
   var iptu = !isNaN(vvi) && vvi >= 0 ? vvi * taxaDecimal : NaN;
 
+  // Extrair URG do bairro para exibição
+  var dadosBairro = obterDadosDoBairro(normalizarTexto(bairro));
+  var urg = dadosBairro ? dadosBairro.nomeURG : "";
+
   var calculoTexto = "";
   if (!isNaN(vvi) && !isNaN(iptu)) {
     calculoTexto =
@@ -350,6 +354,7 @@ export function calcularParaSite(bairro, tipo, valor, zonaEspecial) {
     aliquota: formatPctBR(taxaDecimal),
     iptu: !isNaN(iptu) ? formatBRL(iptu) : "—",
     valorVenal: !isNaN(vvi) ? formatBRL(vvi) : "—",
+    urg: urg,
     texto: textoCompleto,
     textoCurto: textoCurto,
     calculo: calculoTexto,
@@ -447,6 +452,7 @@ export function gerarMensagemContribuinte(bairro, tipo, valor, zonaEspecial, ano
 
   if (tipoImovel === "RESIDENCIAL") {
     tabela = obterTabelaPredialResidencial(urgNorm);
+    if (!tabela || tabela.length < 4) return "URG sem tabela configurada para Residencial. Não foi possível gerar a fundamentação.";
     nomeTabela = `Tabela 3 — Predial Residencial${vigencia}`;
 
     // Faixas padrão (conforme seu código)
@@ -459,6 +465,7 @@ export function gerarMensagemContribuinte(bairro, tipo, valor, zonaEspecial, ano
     ];
   } else if (tipoImovel === "COMERCIAL" || tipoImovel === "INDUSTRIAL") {
     tabela = obterTabelaPredialComercialIndustrial(urgNorm);
+    if (!tabela || tabela.length < 4) return "URG sem tabela configurada para Comercial/Industrial. Não foi possível gerar a fundamentação.";
     nomeTabela = `Tabela 4 — Predial Comercial / Industrial${vigencia}`;
 
     limites = [30000, 60000, 100000, Infinity];

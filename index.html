@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculadora IPTU — Nova Iguaçu</title>
     <meta name="description" content="Calculadora de alíquota IPTU do município de Nova Iguaçu — uso interno da Prefeitura" />
+    <!-- Aplica tema antes do render para evitar flash -->
+    <script>
+      (function () {
+        var saved = localStorage.getItem('theme');
+        var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+      })();
+    </script>
   </head>
   <body>
 
@@ -18,6 +26,7 @@
           <li><a href="#secCalc" class="nav-link" data-section="secCalc">Calculadora</a></li>
           <li><a href="#secTabelas" class="nav-link" data-section="secTabelas">Tabelas</a></li>
           <li><a href="#secBaseLegal" class="nav-link" data-section="secBaseLegal">Base Legal</a></li>
+          <li class="nav-theme-item"><button id="themeToggle" class="theme-toggle" type="button">Tema: Claro</button></li>
         </ul>
       </div>
     </nav>
@@ -157,6 +166,10 @@
                     <p id="whyText"></p>
                   </div>
                 </details>
+
+                <div class="pdf-btn-container">
+                  <button type="button" id="btnGerarPdf" class="btn btn-outline btn-full">Gerar PDF</button>
+                </div>
               </div>
             </div>
           </div>
@@ -211,7 +224,7 @@
                       <td>Engenho Pequeno, Vila Operária, Viga</td>
                       <td><strong>1,2%</strong></td>
                     </tr>
-                    <tr>
+                    <tr class="urg-highlight">
                       <td>POSSE</td>
                       <td>Posse, Ponto Chic, Cerâmica, Três Corações, Kennedy/Caioabá, Botafogo, Carmary, Nova América, Ambaí, Parque Flora</td>
                       <td><strong>1,2%</strong></td>
@@ -221,7 +234,7 @@
                       <td>Comendador Soares, Jardim Alvorada, Danon, Rosa dos Ventos, Jd Nova Era, Jd Palmares, Jd Pernambuco, Ouro Verde</td>
                       <td><strong>1,2%</strong></td>
                     </tr>
-                    <tr>
+                    <tr class="urg-highlight">
                       <td>CABUÇU</td>
                       <td>Cabuçu, Valverde, Palhada, Marapicu, Ipiranga, Lagoinha, Campo Alegre</td>
                       <td><strong>1,0%</strong></td>
@@ -231,7 +244,7 @@
                       <td>KM 32, Jardim Guandu, Paraíso, Prados Verdes</td>
                       <td><strong>1,0%</strong></td>
                     </tr>
-                    <tr>
+                    <tr class="urg-highlight">
                       <td>AUSTIN</td>
                       <td>Austin, Riachão, Cacuia, Rodilândia, Inconfidência, Carlos Sampaio, Vila Guimarães, Tinguazinho</td>
                       <td><strong>1,0%</strong></td>
@@ -241,7 +254,7 @@
                       <td>Vila de Cava, Santa Rita, Corumbá, Rancho Fundo, Figueiras, Iguaçu Velho</td>
                       <td><strong>1,0%</strong></td>
                     </tr>
-                    <tr>
+                    <tr class="urg-highlight">
                       <td>MIGUEL COUTO</td>
                       <td>Miguel Couto, Parque Ambaí, Grama, Boa Esperança, Geneciano</td>
                       <td><strong>1,0%</strong></td>

@@ -7,12 +7,38 @@
  */
 import "./style.css";
 import { getListaBairros, calcularParaSite, BASE_LEGAL_IPTU } from "./iptu.js";
+import html2pdf from "html2pdf.js";
 
 // ==========================================================================
 // UTILITÁRIOS DOM
 // ==========================================================================
 const $ = (id) => document.getElementById(id);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+// ==========================================================================
+// TEMA (dark / light toggle)
+// ==========================================================================
+function initTheme() {
+  const root = document.documentElement;
+  const btn = $('themeToggle');
+
+  function applyTheme(theme) {
+    root.dataset.theme = theme;
+    localStorage.setItem('theme', theme);
+    if (btn) {
+      btn.textContent = theme === 'dark' ? 'Tema: Claro' : 'Tema: Escuro';
+    }
+  }
+
+  // Determina tema inicial
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  applyTheme(saved || (prefersDark ? 'dark' : 'light'));
+
+  btn?.addEventListener('click', () => {
+    applyTheme(root.dataset.theme === 'dark' ? 'light' : 'dark');
+  });
+}
 
 // ==========================================================================
 // NAVBAR (glass + scroll shadow + mobile toggle)
@@ -165,10 +191,7 @@ function initBairroCombobox() {
   const hidden   = $("bairro");
   const combobox = $("bairroCombobox");
 
-  if (!input || !list || !hidden) {
-    console.error("[IPTU] Combobox de bairro não encontrado.");
-    return;
-  }
+  if (!input || !list || !hidden) return;
 
   let activeIdx = -1;
   let isSelected = false; // true quando o usuário escolheu da lista
@@ -313,6 +336,9 @@ function exibirResultado(data) {
   $("calcText").textContent = data.calculo || "";
   $("whyText").textContent = data.texto || "";
 
+  // Store data for PDF generation
+  window.__lastCalcData = data;
+
   const badge = $("badge");
   const ze = $("ze")?.value;
   const tipo = $("tipo")?.value;
@@ -352,18 +378,160 @@ function calcular() {
   try {
     const res = calcularParaSite(bairro, tipo, valor, ze);
     exibirResultado(res);
-  } catch (err) {
-    console.error("[IPTU] Erro no cálculo:", err);
+  } catch (_) {
     alert("Erro ao calcular o IPTU. Verifique os dados e tente novamente.");
   } finally {
     setLoading(false);
   }
 }
 
+// ==========================================================================
+// GERAR PDF
+// ==========================================================================
+function gerarPdf() {
+  const data = window.__lastCalcData;
+  if (!data) {
+    alert("Realize um cálculo antes de gerar o PDF.");
+    return;
+  }
+
+  // Collect form values
+  const tipoEl = $("tipo");
+  const bairroInput = $("bairroInput");
+  const zeEl = $("ze");
+
+  const tipoMap = {
+    TERRITORIAL: "Territorial",
+    RESIDENCIAL: "Predial Residencial",
+    COMERCIAL: "Predial Comercial-Industrial",
+    INDUSTRIAL: "Predial Industrial"
+  };
+
+  const tipo = tipoMap[tipoEl?.value] || tipoEl?.value || "—";
+  const bairro = bairroInput?.value || "—";
+  const ze = zeEl?.value === "SIM" ? "SIM" : "NÃO";
+
+  // Extract URG from calculation data
+  let urg = data.urg || "—";
+
+  // Date
+  const now = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  const dataEmissao = `${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()}`;
+  const filename = `IPTU_Nova_Iguacu_Calculo_${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}.pdf`;
+
+  // Build fundamentação paragraphs
+  const textoFund = data.texto || "";
+  const fundHtml = textoFund
+    .split("\n")
+    .map((line) =>
+      line.trim() === ""
+        ? '<div style="height:3px"></div>'
+        : `<p style="margin:0 0 3px 0;font-size:10.5px;color:#2a2a2a;line-height:1.55">${escHtml(line)}</p>`
+    )
+    .join("");
+
+  // Build identification rows
+  const rows = [
+    ["Tipo do Imóvel", tipo],
+    ["URG", urg],
+    ["Bairro", bairro],
+    ["Zona Especial", ze],
+    ["Valor Venal (VVI)", data.valorVenal || "—"],
+    ["Alíquota Aplicada", data.aliquota || "—"],
+    ["Data de Emissão", dataEmissao]
+  ];
+  const rowsHtml = rows
+    .map(
+      ([label, val]) =>
+        `<tr style="border-bottom:1px solid #e5e5e5"><td style="padding:4px 8px;font-weight:600;color:#3a3a3a;width:40%;font-size:10.5px">${escHtml(label)}</td><td style="padding:4px 8px;color:#1a1a1a;font-size:10.5px">${escHtml(val)}</td></tr>`
+    )
+    .join("");
+
+  // Section title helper
+  const secTitle = (text) =>
+    `<h2 style="font-size:11px;font-weight:700;color:#34699A;text-transform:uppercase;letter-spacing:0.03em;margin:0 0 5px 0;padding-bottom:3px;border-bottom:1px solid #BCCCDC">${escHtml(text)}</h2>`;
+
+  // Full HTML string with inline styles
+  const htmlStr = `
+    <div style="width:100%;background:#FFFFFF;color:#1a1a1a;font-family:Helvetica,Arial,sans-serif;font-size:10.5px;line-height:1.55;padding:0">
+      <!-- Header -->
+      <div style="text-align:center;margin-bottom:10px">
+        <p style="font-size:14px;font-weight:700;color:#34699A;text-transform:uppercase;letter-spacing:0.04em;margin:0 0 2px 0">PREFEITURA MUNICIPAL DE NOVA IGUAÇU</p>
+        <p style="font-size:12px;font-weight:600;color:#3a3a3a;margin:0 0 2px 0">Secretaria Municipal da Fazenda</p>
+        <p style="font-size:10.5px;color:#3a3a3a;margin:0 0 5px 0">Calculadora de IPTU</p>
+        <div style="height:2px;background:#34699A;margin:5px 0"></div>
+      </div>
+
+      <!-- Identificação -->
+      <div style="margin-bottom:10px">
+        ${secTitle("Identificação do Cálculo")}
+        <table style="width:100%;border-collapse:collapse;margin-bottom:3px">
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>
+
+      <!-- Resultado — layout horizontal compacto -->
+      <div style="margin-bottom:10px">
+        ${secTitle("Resultado")}
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:6px 10px;background:#f4f7fa;border:1px solid #e0e6ed;border-radius:3px">
+          <span style="font-size:11px;font-weight:600;color:#3a3a3a">Valor do IPTU Calculado:</span>
+          <span style="font-size:14px;font-weight:700;color:#1a1a1a">${escHtml(data.iptu || "—")}</span>
+        </div>
+      </div>
+
+      <!-- Fundamentação -->
+      <div style="margin-bottom:10px">
+        ${secTitle("Fundamentação do Cálculo")}
+        <div style="word-wrap:break-word;overflow-wrap:break-word">${fundHtml}</div>
+      </div>
+
+      <!-- Base Legal -->
+      <div style="margin-bottom:10px">
+        ${secTitle("Base Legal")}
+        <p style="font-size:10.5px;color:#2a2a2a;margin:2px 0;line-height:1.55">Base legal (CTM Nova Iguaçu)</p>
+        <p style="font-size:10.5px;color:#2a2a2a;margin:2px 0;line-height:1.55">Conforme o Art. 18 do Código Tributário Municipal, o IPTU é apurado pela aplicação da alíquota correspondente (ALC) sobre o valor venal do imóvel (VVI), seguindo a fórmula: IPTU = VVI × ALC. As alíquotas aplicáveis constam das tabelas municipais vigentes (ref. 2017), variando conforme a localização/URG, uso do imóvel e faixas de valor venal.</p>
+        <p style="font-size:10.5px;color:#2a2a2a;margin:2px 0;line-height:1.55">Referência: Tabelas municipais vigentes (2017)</p>
+      </div>
+
+      <!-- Rodapé -->
+      <div style="margin-top:12px;text-align:center">
+        <div style="height:1px;background:#34699A;margin:5px 0"></div>
+        <p style="font-size:8.5px;color:#888;margin:2px 0">Documento gerado automaticamente pela Calculadora de IPTU — Nova Iguaçu.</p>
+        <p style="font-size:8.5px;color:#888;margin:2px 0">Este documento não substitui guia oficial de arrecadação.</p>
+      </div>
+    </div>
+  `;
+
+  const opt = {
+    margin: [8, 8, 8, 8],
+    filename: filename,
+    image: { type: "jpeg", quality: 0.98 },
+    html2canvas: { scale: 1.8, useCORS: true, backgroundColor: "#FFFFFF" },
+    jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+    pagebreak: { mode: ["avoid-all", "css", "legacy"] }
+  };
+
+  html2pdf().set(opt).from(htmlStr, "string").save()
+    .catch(() => {
+      alert("Erro ao gerar o PDF. Tente novamente.");
+    });
+}
+
+/** Escapa HTML para evitar XSS ao injetar conteúdo no template string */
+function escHtml(str) {
+  const d = document.createElement("div");
+  d.textContent = str;
+  return d.innerHTML;
+}
+
 function limparFormulario() {
   const form = $("formCalc");
   if (form) form.reset();
-  $("result")?.classList.add("hidden");  $('calcLayout')?.classList.remove('has-result');}
+  $("result")?.classList.add("hidden");
+  $('calcLayout')?.classList.remove('has-result');
+  window.__lastCalcData = null;
+}
 
 function initCalculadora() {
   const form = $("formCalc");
@@ -373,6 +541,7 @@ function initCalculadora() {
   });
 
   $("btnLimpar")?.addEventListener("click", limparFormulario);
+  $("btnGerarPdf")?.addEventListener("click", gerarPdf);
 }
 
 // ==========================================================================
@@ -393,14 +562,15 @@ function renderizarBaseLegal() {
 // ==========================================================================
 function inicializar() {
   try {
+    initTheme();
     initNavbar();
     initTabs();
     initTableSearch();
     initBairroCombobox();
     initCalculadora();
     renderizarBaseLegal();
-  } catch (err) {
-    console.error("[IPTU] Falha na inicialização:", err);
+  } catch (_) {
+    // Falha silenciosa na inicialização
   }
 }
 
