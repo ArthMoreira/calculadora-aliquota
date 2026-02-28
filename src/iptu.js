@@ -292,7 +292,9 @@ function parseValorBR(v) {
   if (v === null || v === undefined) return NaN;
 
   var s = v.toString().trim();
-  s = s.replace(/\s/g, "");
+  // Remove símbolo de moeda (R$) e espaços
+  s = s.replace(/[R$\s]/g, "");
+  // Remove pontos de milhar e substitui vírgula decimal por ponto
   s = s.replace(/\./g, "").replace(",", ".");
   return parseFloat(s);
 }

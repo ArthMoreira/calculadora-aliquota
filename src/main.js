@@ -15,6 +15,34 @@ import html2pdf from "html2pdf.js";
 const $ = (id) => document.getElementById(id);
 const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
 
+/**
+ * Rola suavemente até o elemento com o id dado, sem alterar a URL.
+ * Usa history.replaceState para garantir que nenhum fragmento (#) seja adicionado.
+ */
+function scrollToId(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Mantém a URL limpa (sem #fragmento)
+  history.replaceState(null, "", window.location.pathname + window.location.search);
+}
+
+/**
+ * Intercepta todos os cliques em âncoras internas (href="#...").
+ * Impede a navegação padrão (que adicionaria o hash à URL)
+ * e substitui pelo scroll suave via scrollToId.
+ */
+function initScrollLinks() {
+  document.addEventListener("click", (e) => {
+    const anchor = e.target.closest("a[href^='#']");
+    if (!anchor) return;
+    const id = anchor.getAttribute("href").slice(1);
+    if (!id) return; // href="#" puro — ignora
+    e.preventDefault();
+    scrollToId(id);
+  });
+}
+
 // ==========================================================================
 // TEMA (dark / light toggle)
 // ==========================================================================
@@ -324,10 +352,12 @@ function setLoading(isLoading) {
 
 function exibirResultado(data) {
   const result = $("result");
+  const calcBottom = $("calcBottom");
   const layout = $('calcLayout');
   if (!result) return;
 
   result.classList.remove('hidden');
+  calcBottom?.classList.remove('hidden');
   layout?.classList.add('has-result');
 
   $("iptuValue").textContent = data.iptu || "—";
@@ -529,6 +559,7 @@ function limparFormulario() {
   const form = $("formCalc");
   if (form) form.reset();
   $("result")?.classList.add("hidden");
+  $("calcBottom")?.classList.add("hidden");
   $('calcLayout')?.classList.remove('has-result');
   window.__lastCalcData = null;
 }
@@ -539,6 +570,23 @@ function initCalculadora() {
     e.preventDefault();
     calcular();
   });
+
+  // Máscara monetária no campo Valor Venal
+  const inputValor = $("valor");
+  if (inputValor) {
+    inputValor.addEventListener("input", () => {
+      const digits = inputValor.value.replace(/\D/g, "");
+      if (!digits) {
+        inputValor.value = "";
+        return;
+      }
+      const num = parseInt(digits, 10) / 100;
+      inputValor.value = num.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      });
+    });
+  }
 
   $("btnLimpar")?.addEventListener("click", limparFormulario);
   $("btnGerarPdf")?.addEventListener("click", gerarPdf);
@@ -562,6 +610,7 @@ function renderizarBaseLegal() {
 // ==========================================================================
 function inicializar() {
   try {
+    initScrollLinks();
     initTheme();
     initNavbar();
     initTabs();

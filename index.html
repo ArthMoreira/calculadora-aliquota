@@ -119,7 +119,7 @@
 
                 <div class="form-group">
                   <label for="valor">Valor Venal (R$)</label>
-                  <input type="text" id="valor" inputmode="decimal" placeholder="Ex: 104.280,08" required aria-required="true" autocomplete="off" />
+                  <input type="text" id="valor" inputmode="decimal" placeholder="Ex: R$ 104.280,08" required aria-required="true" autocomplete="off" />
                 </div>
 
                 <div class="form-actions">
@@ -129,7 +129,7 @@
               </form>
             </div>
 
-            <!-- Resultado (sticky no desktop) -->
+            <!-- Resultado -->
             <div class="calc-result-col">
               <div id="result" class="card result-card-wrapper hidden">
                 <h3 class="card-title">Resultado</h3>
@@ -153,25 +153,28 @@
                   <span id="badge" class="badge badge-ok">OK</span>
                 </div>
 
-                <details class="result-details">
-                  <summary>Detalhes do Cálculo</summary>
-                  <div>
-                    <pre id="calcText"></pre>
-                  </div>
-                </details>
-
-                <details class="result-details">
-                  <summary>Fundamentação</summary>
-                  <div>
-                    <p id="whyText"></p>
-                  </div>
-                </details>
-
                 <div class="pdf-btn-container">
                   <button type="button" id="btnGerarPdf" class="btn btn-outline btn-full">Gerar PDF</button>
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Accordions: full width abaixo dos dois cards -->
+          <div id="calcBottom" class="calc-bottom hidden">
+            <details class="result-details">
+              <summary>Detalhes do Cálculo</summary>
+              <div>
+                <pre id="calcText"></pre>
+              </div>
+            </details>
+
+            <details class="result-details">
+              <summary>Fundamentação</summary>
+              <div>
+                <p id="whyText"></p>
+              </div>
+            </details>
           </div>
         </div>
       </section>
