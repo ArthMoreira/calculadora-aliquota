@@ -1,12 +1,4 @@
-/* ==========================================================================
-   IPTU Nova Iguaçu — Design System Institucional
-   ==========================================================================
-   Temas: dark (#222831/#31363F/#76ABAE/#EEEEEE)
-          light (#FFFFFF/#CFD8E2/#BCCCDC/#34699A)
-   Sem ícones. Sem frameworks. CSS puro + variáveis.
-   ========================================================================== */
 
-/* ---------- RESET ---------- */
 *,
 *::before,
 *::after {
@@ -14,8 +6,6 @@
   margin: 0;
   padding: 0;
 }
-
-/* ---------- TOKENS (Design Tokens) ---------- */
 
 /* Valores fixos — independentes do tema */
 :root {
@@ -278,9 +268,7 @@ body {
   outline-offset: 2px;
 }
 
-/* ==========================================================================
-   HERO
-   ========================================================================== */
+/* HERO */
 .main-content {
   padding-top: var(--navbar-h);
 }
@@ -324,9 +312,7 @@ body {
   line-height: 1.5;
 }
 
-/* ==========================================================================
-   BUTTONS
-   ========================================================================== */
+/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -399,9 +385,7 @@ body {
   width: 100%;
 }
 
-/* ==========================================================================
-   SECTIONS
-   ========================================================================== */
+/* SECTIONS */
 .section {
   padding: 3.5rem 0;
 }
@@ -419,9 +403,7 @@ body {
   text-align: center;
 }
 
-/* ==========================================================================
-   SHORTCUT CARDS (Atalhos)
-   ========================================================================== */
+/* SHORTCUT CARDS (Atalhos) */
 .shortcuts-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -460,9 +442,7 @@ body {
   line-height: 1.5;
 }
 
-/* ==========================================================================
-   CARDS (genérico)
-   ========================================================================== */
+/* CARDS (genérico) */
 .card {
   background: var(--c-card);
   border: 1px solid var(--c-card-border);
@@ -487,9 +467,7 @@ body {
   border-bottom: 1px solid var(--c-card-border);
 }
 
-/* ==========================================================================
-   TABS
-   ========================================================================== */
+/* TABS */
 .tabs {
   display: flex;
   gap: 0.25rem;
@@ -540,9 +518,7 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ==========================================================================
-   TABLES
-   ========================================================================== */
+/* TABLES */
 .table-search {
   margin-bottom: 1rem;
 }
@@ -677,14 +653,12 @@ tbody tr.row-hidden {
   line-height: 1.5;
 }
 
-/* ==========================================================================
-   CALCULATOR LAYOUT — animação centralizado → 2 colunas
-   ========================================================================== */
+/* CALCULATOR LAYOUT — animação centralizado → 2 coluna */
 .calc-layout {
   display: flex;
   flex-wrap: wrap;
   gap: 1.5rem;
-  align-items: start;
+  align-items: stretch;
   justify-content: center;
 }
 
@@ -702,6 +676,8 @@ tbody tr.row-hidden {
   overflow: hidden;
   opacity: 0;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
   transition:
     flex-basis 420ms cubic-bezier(0.4, 0, 0.2, 1),
     opacity 320ms cubic-bezier(0.4, 0, 0.2, 1) 80ms;
@@ -716,8 +692,11 @@ tbody tr.row-hidden {
   overflow: visible;
 }
 
-/* Card de resultado: entrada animada */
+/* Card de resultado: ocupa 100% da coluna e empilha conteúdo verticalmente */
 .calc-layout.has-result .result-card-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   animation: resultEnter 380ms cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
@@ -737,7 +716,6 @@ tbody tr.row-hidden {
   .calc-layout.has-result .calc-result-col {
     position: sticky;
     top: calc(var(--navbar-h) + 1rem);
-    align-self: start;
   }
 }
 
@@ -750,9 +728,7 @@ tbody tr.row-hidden {
   }
 }
 
-/* ==========================================================================
-   FORM
-   ========================================================================== */
+/* FORM */
 .form-group {
   margin-bottom: 1.125rem;
 }
@@ -765,9 +741,7 @@ tbody tr.row-hidden {
   color: var(--c-text);
 }
 
-/* ==========================================================================
-   COMBOBOX — Bairro
-   ========================================================================== */
+/* COMBOBOX — Bairro */
 .combobox {
   position: relative;
 }
@@ -906,9 +880,7 @@ tbody tr.row-hidden {
   margin-top: 1.5rem;
 }
 
-/* ==========================================================================
-   RESULT
-   ========================================================================== */
+/* RESULT */
 .result-card-wrapper {
   animation: fadeIn 250ms ease;
 }
@@ -957,9 +929,20 @@ tbody tr.row-hidden {
 }
 
 /* Badge */
+.result-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.result-card-header .card-title {
+  margin-bottom: 0;
+}
+
 .badge-container {
-  text-align: right;
-  margin-bottom: 0.75rem;
+  flex-shrink: 0;
 }
 
 .badge {
@@ -1053,14 +1036,13 @@ tbody tr.row-hidden {
   white-space: pre-line;
 }
 
-/* PDF Button */
+/* PDF Button — empurrado para o fundo do card resultado */
 .pdf-btn-container {
-  margin-top: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
-/* ==========================================================================
-   CALC BOTTOM — Accordions full width abaixo dos cards
-   ========================================================================== */
+/* CALC BOTTOM — Accordions full width abaixo dos cards */
 .calc-bottom {
   margin-top: 1.25rem;
   width: 100%;
@@ -1073,9 +1055,7 @@ tbody tr.row-hidden {
   margin-top: 0;
 }
 
-/* ==========================================================================
-   BASE LEGAL
-   ========================================================================== */
+/* BASE LEGAL */
 .base-legal-card {
   border-left: 4px solid var(--c-primary);
 }
@@ -1104,9 +1084,7 @@ tbody tr.row-hidden {
   color: var(--c-text-muted);
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/* FOOTER */
 .footer {
   text-align: center;
   padding: 2rem 1rem;
@@ -1134,9 +1112,7 @@ tbody tr.row-hidden {
   text-decoration: underline;
 }
 
-/* ==========================================================================
-   RESPONSIVIDADE
-   ========================================================================== */
+/* RESPONSIVIDADE */
 
 /* Mobile: show hamburger & scroll hint */
 @media (max-width: 767px) {
@@ -1252,10 +1228,10 @@ tbody tr.row-hidden {
   }
 }
 
-/* ==========================================================================
+/* 
    LIGHT THEME — Overrides específicos
    Card da Calculadora e Base Legal com fundo #34699A
-   ========================================================================== */
+  */
 [data-theme="light"] .calc-form-card {
   background: #34699A;
   border-color: #2b577f;
