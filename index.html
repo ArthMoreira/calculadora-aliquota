@@ -10,7 +10,9 @@
       (function () {
         var saved = localStorage.getItem('theme');
         var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = saved || (prefersDark ? 'dark' : 'light');
+        var theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.classList.toggle('dark', theme === 'dark');
       })();
     </script>
   </head>
@@ -35,14 +37,40 @@
 
       <!-- ===== HERO ===== -->
       <section id="hero" class="hero-section">
+        <div class="hero-glow" aria-hidden="true"></div>
         <div class="container">
           <h1 class="hero-title">Calculadora de IPTU — Nova Iguaçu</h1>
-          <p class="hero-subtitle">Referência: Tabelas 2017 &nbsp;|&nbsp; Cálculo: IPTU = VVI × Alíquota</p>
-          <div class="hero-actions">
-            <a href="#secCalc" class="btn btn-primary">Abrir Calculadora</a>
-            <a href="#secTabelas" class="btn btn-outline">Ver Tabelas</a>
+          <p class="hero-subtitle">Hub de Ferramentas para apuração técnica: escolha o fluxo correto logo no início.</p>
+
+          <div class="hero-tools-grid">
+            <a href="#secCalc" class="hero-tool-card hero-tool-card-primary" data-open-calc-mode="valor_venal">
+              <div class="hero-tool-icon hero-tool-icon-teal">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="4" y="3" width="16" height="18" rx="2.6" stroke="currentColor" stroke-width="1.7"/>
+                  <rect x="7" y="6" width="10" height="3.4" rx="1.1" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 12.4h2M12 12.4h2M16 12.4h0.01M8 15.4h2M12 15.4h2M16 15.4h0.01M8 18.2h2M12 18.2h2M16 18.2h0.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3>Calculadora de Valor Venal</h3>
+              <p>Apure terreno, construção e composição completa com parâmetros técnicos e memória de cálculo.</p>
+              <span class="hero-tool-btn hero-tool-btn-primary">Abrir Calculadora</span>
+            </a>
+
+            <a href="#secCalc" class="hero-tool-card hero-tool-card-secondary" data-open-calc-mode="aliquota">
+              <div class="hero-tool-icon hero-tool-icon-slate">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="4" y="3" width="16" height="18" rx="2.6" stroke="currentColor" stroke-width="1.7"/>
+                  <rect x="7" y="6" width="10" height="3.4" rx="1.1" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 12.4h2M12 12.4h2M16 12.4h0.01M8 15.4h2M12 15.4h2M16 15.4h0.01M8 18.2h2M12 18.2h2M16 18.2h0.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <h3>Calculadora de Alíquota</h3>
+              <p>Simule o imposto com base no valor venal informado, enquadramento e regras da alíquota aplicável.</p>
+              <span class="hero-tool-btn hero-tool-btn-secondary">Abrir Calculadora</span>
+            </a>
           </div>
-          <p class="hero-note">As alíquotas variam conforme URG, uso do imóvel e faixa de valor venal.</p>
+
+          <p class="hero-note">Escolha a ferramenta principal e siga para a calculadora já no contexto correto.</p>
         </div>
       </section>
 
@@ -52,18 +80,43 @@
           <h2 class="section-title">Acesso rápido</h2>
           <div class="shortcuts-grid">
             <a href="#secCalc" class="shortcut-card">
+              <div class="shortcut-icon shortcut-icon-teal">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="4" y="3" width="16" height="18" rx="2.6" stroke="currentColor" stroke-width="1.7"/>
+                  <rect x="7" y="6" width="10" height="3.4" rx="1.1" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M8 12.4h2M12 12.4h2M16 12.4h0.01M8 15.4h2M12 15.4h2M16 15.4h0.01M8 18.2h2M12 18.2h2M16 18.2h0.01" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                </svg>
+              </div>
               <h3>Calcular IPTU</h3>
               <p>Informe bairro, tipo e valor venal para obter a alíquota e o imposto devido.</p>
             </a>
             <a href="#secTabelas" class="shortcut-card" data-activate-tab="tab1">
+              <div class="shortcut-icon shortcut-icon-emerald">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                  <rect x="3" y="4" width="18" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+              </div>
               <h3>Tabelas de Alíquotas</h3>
               <p>Consulte as tabelas Territorial, Zona Especial, Predial Residencial e Comercial.</p>
             </a>
             <a href="#secTabelas" class="shortcut-card" data-activate-tab="tab2">
+              <div class="shortcut-icon shortcut-icon-blue">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M12 3l8 4v6c0 4.5-3.1 7.5-8 8-4.9-.5-8-3.5-8-8V7l8-4z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M9 12.5l2 2l4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
               <h3>Zona Especial (ZE)</h3>
               <p>Alíquotas diferenciadas para logradouros cadastrados em Zona Especial.</p>
             </a>
             <a href="#secBaseLegal" class="shortcut-card">
+              <div class="shortcut-icon shortcut-icon-purple">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M6 4h9l3 3v13H6z" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M15 4v3h3M9 11h6M9 15h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </div>
               <h3>Base Legal</h3>
               <p>Fundamentação no Código Tributário Municipal — Art. 18.</p>
             </a>
@@ -73,15 +126,24 @@
 
       <!-- ===== CALCULADORA ===== -->
       <section id="secCalc" class="section section-alt">
-        <div class="container">
+        <div class="container calc-container">
           <h2 class="section-title">Calculadora de IPTU</h2>
+
+          <div id="calcModeSegmented" class="calc-mode-segmented" role="tablist" aria-label="Selecionar modo de cálculo">
+            <div class="calc-mode-pill" aria-hidden="true"></div>
+            <button type="button" class="calc-mode-btn active" data-calc-mode-btn="aliquota" role="tab" aria-selected="true">Alíquota</button>
+            <button type="button" class="calc-mode-btn" data-calc-mode-btn="valor_venal" role="tab" aria-selected="false">Valor Venal</button>
+          </div>
 
           <div class="calc-layout" id="calcLayout">
             <!-- Formulário -->
-            <div class="card calc-form-card">
+            <div class="card calc-form-card calc-form-card-modern" id="calcFormCard">
+              <div id="calcModeCardGlow" class="calc-mode-card-glow" aria-hidden="true"></div>
               <h3 class="card-title">Dados do Imóvel</h3>
               <form id="formCalc" novalidate>
-                <div class="form-group">
+                <input type="hidden" id="calcModo" value="aliquota" />
+
+                <div class="form-group calc-aliquota-only">
                   <label for="tipo">Tipo de Imóvel</label>
                   <select id="tipo" required aria-required="true">
                     <option value="TERRITORIAL">Territorial</option>
@@ -109,7 +171,7 @@
                   <input type="hidden" id="bairro" />
                 </div>
 
-                <div class="form-group">
+                <div class="form-group calc-aliquota-only">
                   <label for="ze">Zona Especial (ZE)</label>
                   <select id="ze" aria-label="O imóvel está em Zona Especial?">
                     <option value="NAO">Não</option>
@@ -117,9 +179,225 @@
                   </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group calc-aliquota-only">
                   <label for="valor">Valor Venal (R$)</label>
                   <input type="text" id="valor" inputmode="decimal" placeholder="Ex: R$ 104.280,08" required aria-required="true" autocomplete="off" />
+                </div>
+
+                <div class="calc-venal-only hidden">
+                  <div class="calc-section-header">
+                    <h4 class="calc-section-title">Dados Gerais</h4>
+                    <p class="calc-section-subtitle">Defina competência, composição e parâmetros para o cálculo de valor venal.</p>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="competencia">Competência</label>
+                    <select id="competencia" aria-label="Selecionar competência">
+                      <option value="">Selecione o ano</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group escopo-group">
+                    <label for="escopoVenal">Composição do Cálculo</label>
+                    <select id="escopoVenal" class="hidden" aria-label="Selecionar composição do cálculo de valor venal">
+                      <option value="terreno" selected>Somente Terreno</option>
+                      <option value="construcao">Somente Construção</option>
+                      <option value="terreno_construcao">Terreno + Construção</option>
+                    </select>
+                    <div class="scope-switch" id="escopoVenalSwitch" role="tablist" aria-label="Composição do cálculo de valor venal">
+                      <div class="scope-switch-pill" aria-hidden="true"></div>
+                      <button type="button" class="scope-switch-btn active" data-scope="terreno" role="tab" aria-selected="true">Somente Terreno</button>
+                      <button type="button" class="scope-switch-btn" data-scope="construcao" role="tab" aria-selected="false">Somente Construção</button>
+                      <button type="button" class="scope-switch-btn" data-scope="terreno_construcao" role="tab" aria-selected="false">Terreno + Construção</button>
+                    </div>
+                  </div>
+
+                  <div id="venalSections" class="venal-sections">
+                    <div id="terrenoFields" class="conditional-box">
+                      <div class="calc-section-header calc-section-header-inner">
+                        <h4 class="calc-section-title">Dados do Terreno</h4>
+                        <p class="calc-section-subtitle">Informe o tipo e os dados para apuração do valor venal do terreno.</p>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="tipoTerreno">Tipo de Terreno</label>
+                        <select id="tipoTerreno" aria-label="Selecionar tipo de terreno">
+                          <option value="bairro_oficial">Bairro Oficial</option>
+                          <option value="zona_especial">Zona Especial</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group" id="terrenoZonaFiscalGroup">
+                        <label for="terrenoZonaFiscal">Zona Fiscal (Terreno)</label>
+                        <select id="terrenoZonaFiscal" aria-label="Selecionar zona fiscal do terreno">
+                          <option value="">Selecione a zona fiscal</option>
+                        </select>
+                      </div>
+
+                      <div class="form-group hidden" id="terrenoCodigoLogradouroGroup">
+                        <label for="terrenoZeRegiao">Zona Especial (Terreno)</label>
+                        <p id="terrenoZeBreadcrumb" class="ze-breadcrumb">Zona Especial > Selecionar região > Selecionar logradouro</p>
+                        <div class="form-group ze-step-grid">
+                          <label for="terrenoZeRegiao">Região / URG</label>
+                          <select id="terrenoZeRegiao" aria-label="Selecionar região da zona especial para terreno">
+                            <option value="">Selecione a região</option>
+                          </select>
+                          <p id="terrenoZeRegiaoHint" class="ze-hint">A região pode ser identificada automaticamente com base no bairro do imóvel.</p>
+                        </div>
+                        <div class="form-group">
+                          <label for="terrenoZeLogradouro">Logradouro / Trecho</label>
+                          <select id="terrenoZeLogradouro" aria-label="Selecionar logradouro de zona especial para terreno">
+                            <option value="">Selecione o logradouro</option>
+                          </select>
+                        </div>
+                        <p id="terrenoZeMeta" class="ze-meta">Código técnico: —</p>
+                        <input type="hidden" id="terrenoCodigoLogradouro" />
+                      </div>
+
+                      <div class="form-group">
+                        <label for="areaTerreno">Área do Terreno (m²)</label>
+                        <input type="text" id="areaTerreno" inputmode="decimal" placeholder="Ex: 420" autocomplete="off" />
+                      </div>
+                    </div>
+
+                    <div id="construcaoFields" class="conditional-box hidden">
+                      <div class="calc-section-header calc-section-header-inner">
+                        <h4 class="calc-section-title">Dados da Construção</h4>
+                        <p class="calc-section-subtitle">Preencha conforme o tipo de construção para compor o valor venal.</p>
+                      </div>
+
+                    <div class="form-group">
+                      <label for="tipoConstrucaoVenal">Tipo de Construção</label>
+                      <select id="tipoConstrucaoVenal" aria-label="Selecionar tipo de construção">
+                        <option value="residencial">Residencial</option>
+                        <option value="comercial_industrial">Comercial / Industrial</option>
+                        <option value="zona_especial">Zona Especial</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group" id="construcaoZonaFiscalGroup">
+                      <label for="construcaoZonaFiscal">Zona Fiscal (Construção)</label>
+                      <select id="construcaoZonaFiscal" aria-label="Selecionar zona fiscal da construção">
+                        <option value="">Selecione a zona fiscal</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group hidden" id="construcaoCodigoLogradouroGroup">
+                      <label for="construcaoZeRegiao">Zona Especial (Construção)</label>
+                      <p id="construcaoZeBreadcrumb" class="ze-breadcrumb">Zona Especial > Selecionar região > Selecionar logradouro</p>
+                      <div class="form-group ze-step-grid">
+                        <label for="construcaoZeRegiao">Região / URG</label>
+                        <select id="construcaoZeRegiao" aria-label="Selecionar região da zona especial para construção">
+                          <option value="">Selecione a região</option>
+                        </select>
+                        <p id="construcaoZeRegiaoHint" class="ze-hint">A região pode ser identificada automaticamente com base no bairro do imóvel.</p>
+                      </div>
+                      <div class="form-group">
+                        <label for="construcaoZeLogradouro">Logradouro / Trecho</label>
+                        <select id="construcaoZeLogradouro" aria-label="Selecionar logradouro de zona especial para construção">
+                          <option value="">Selecione o logradouro</option>
+                        </select>
+                      </div>
+                      <p id="construcaoZeMeta" class="ze-meta">Código técnico: —</p>
+                      <input type="hidden" id="construcaoCodigoLogradouro" />
+                    </div>
+
+                    <div id="residencialFields" class="conditional-box">
+                      <div class="form-group">
+                        <label for="residencialModo">Formato Residencial</label>
+                        <select id="residencialModo" aria-label="Selecionar formato residencial">
+                          <option value="simples">Simples</option>
+                          <option value="padrao_diferente">Com Padrão Diferente</option>
+                        </select>
+                      </div>
+
+                      <div id="residencialSimplesFields">
+                        <div class="form-group">
+                          <label for="areaConstruida">Área Construída (m²)</label>
+                          <input type="text" id="areaConstruida" inputmode="decimal" placeholder="Ex: 80" autocomplete="off" />
+                        </div>
+                        <div class="form-group">
+                          <label for="padraoResidencial">Padrão</label>
+                          <select id="padraoResidencial" aria-label="Selecionar padrão residencial">
+                            <option value="principal">Principal</option>
+                            <option value="diferente">Diferente</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div id="residencialCompostoFields" class="hidden">
+                        <div class="form-group form-grid-2">
+                          <div>
+                            <label for="areaConstruidaPrincipal">Área Principal (m²)</label>
+                            <input type="text" id="areaConstruidaPrincipal" inputmode="decimal" placeholder="Ex: 70" autocomplete="off" />
+                          </div>
+                          <div>
+                            <label for="padraoPrincipal">Padrão Principal</label>
+                            <select id="padraoPrincipal" aria-label="Selecionar padrão principal residencial">
+                              <option value="principal">Principal</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group form-grid-2">
+                          <div>
+                            <label for="areaConstruidaDiferente">Área Diferente (m²)</label>
+                            <input type="text" id="areaConstruidaDiferente" inputmode="decimal" placeholder="Ex: 20" autocomplete="off" />
+                          </div>
+                          <div>
+                            <label for="padraoDiferente">Padrão Diferente</label>
+                            <select id="padraoDiferente" aria-label="Selecionar padrão diferente residencial">
+                              <option value="diferente">Diferente</option>
+                              <option value="padrao_diferente">Padrão Diferente</option>
+                              <option value="acpd">ACPD</option>
+                              <option value="secundario">Secundário</option>
+                              <option value="secundaria">Secundária</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div id="comercialFields" class="conditional-box hidden">
+                      <div class="form-group form-grid-2">
+                        <div>
+                          <label for="areaLojaTerrea">Área Loja Térrea (m²)</label>
+                          <input type="text" id="areaLojaTerrea" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                        <div>
+                          <label for="areaPavimentoSuperior">Área Pavimento Superior (m²)</label>
+                          <input type="text" id="areaPavimentoSuperior" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                      </div>
+                      <div class="form-group form-grid-2">
+                        <div>
+                          <label for="areaGalpao">Área Galpão (m²)</label>
+                          <input type="text" id="areaGalpao" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                        <div>
+                          <label for="areaTelheiro">Área Telheiro (m²)</label>
+                          <input type="text" id="areaTelheiro" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                      </div>
+                      <div class="form-group form-grid-2">
+                        <div>
+                          <label for="areaEstacionamento">Área Estacionamento (m²)</label>
+                          <input type="text" id="areaEstacionamento" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                        <div>
+                          <label for="areaUsoComum">Área Uso Comum (m²)</label>
+                          <input type="text" id="areaUsoComum" inputmode="decimal" placeholder="0" autocomplete="off" />
+                        </div>
+                      </div>
+                    </div>
+
+                      <div id="zonaEspecialConstrucaoFields" class="conditional-box hidden">
+                        <div class="form-group">
+                          <label for="areaConstruidaZonaEspecial">Área Construída (m²)</label>
+                          <input type="text" id="areaConstruidaZonaEspecial" inputmode="decimal" placeholder="Ex: 50" autocomplete="off" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-actions">
@@ -133,7 +411,7 @@
             <div class="calc-result-col">
               <div id="result" class="card result-card-wrapper hidden">
                 <div class="result-card-header">
-                  <h3 class="card-title">Resultado</h3>
+                  <h3 id="resultTitle" class="card-title">Resultado</h3>
                   <div class="badge-container">
                     <span id="badge" class="badge badge-ok">OK</span>
                   </div>
@@ -141,15 +419,15 @@
 
                 <div class="result-grid">
                   <div class="result-item">
-                    <span class="result-label">Valor Venal</span>
+                    <span id="labelVvi" class="result-label">Valor Venal</span>
                     <span id="vviValue" class="result-value">—</span>
                   </div>
                   <div class="result-item">
-                    <span class="result-label">Alíquota</span>
+                    <span id="labelAliq" class="result-label">Alíquota</span>
                     <span id="aliqValue" class="result-value">—</span>
                   </div>
                   <div class="result-item result-highlight">
-                    <span class="result-label">IPTU Anual</span>
+                    <span id="labelIptu" class="result-label">IPTU Anual</span>
                     <span id="iptuValue" class="result-value">—</span>
                   </div>
                 </div>
@@ -164,14 +442,14 @@
           <!-- Accordions: full width abaixo dos dois cards -->
           <div id="calcBottom" class="calc-bottom hidden">
             <details class="result-details">
-              <summary>Detalhes do Cálculo</summary>
+              <summary id="detailsCalcSummary">Detalhes do Cálculo</summary>
               <div>
                 <pre id="calcText"></pre>
               </div>
             </details>
 
             <details class="result-details">
-              <summary>Fundamentação</summary>
+              <summary id="detailsWhySummary">Fundamentação</summary>
               <div>
                 <p id="whyText"></p>
               </div>
@@ -431,13 +709,25 @@
 
       <!-- ===== BASE LEGAL ===== -->
       <section id="secBaseLegal" class="section section-alt">
-        <div class="container">
-          <h2 class="section-title">Base Legal</h2>
-          <div class="card base-legal-card">
-            <h3 class="card-title" id="baseLegalTitulo"></h3>
-            <p class="base-legal-texto" id="baseLegalTexto"></p>
-            <blockquote class="base-legal-quote" id="baseLegalRef"></blockquote>
-            <p class="base-legal-rodape">Referência: Tabelas 2017</p>
+        <div class="container base-legal-container">
+          <div class="base-legal-header">
+            <h2 class="base-legal-heading">Base Legal</h2>
+            <span class="base-legal-badge">Tabelas 2017</span>
+          </div>
+          <div class="base-legal-panel">
+            <h3 class="base-legal-subtitle">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="base-legal-icon" width="20" height="20">
+                <path d="M5 12h14M12 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <rect x="3" y="3" width="18" height="18" rx="4" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              Código Tributário Municipal (CTM)
+            </h3>
+            <p class="base-legal-copy">
+              Conforme o Art. 18 do Código Tributário Municipal, o IPTU é apurado pela aplicação da alíquota correspondente (ALC) sobre o valor venal do imóvel (VVI), seguindo a fórmula: <strong class="base-legal-formula">IPTU = VVI × ALC</strong>. As alíquotas aplicáveis constam das tabelas municipais vigentes (ref. 2017), variando conforme a localização/URG, uso do imóvel e faixas de valor venal.
+            </p>
+            <blockquote class="base-legal-quote-minimal">
+              <p>"Art. 18 — Código Tributário Municipal (Nova Iguaçu)"</p>
+            </blockquote>
           </div>
         </div>
       </section>
@@ -445,12 +735,32 @@
     </main>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-      <div class="container">
-        <p>Calculadora IPTU Nova Iguaçu — Referência: Tabelas 2017</p>
-        <a href="#hero" class="footer-top-link">Voltar ao topo</a>
+    <footer class="footer-minimal">
+      <div class="footer-minimal-inner">
+        <div class="footer-minimal-copy">© 2026 Calculadora IPTU Nova Iguaçu</div>
+        <button type="button" class="footer-minimal-top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          Voltar ao topo
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" class="footer-minimal-icon" width="14" height="14">
+            <path d="M12 5l6 6M12 5L6 11M12 5v14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
     </footer>
+
+    <div id="appModal" class="app-modal hidden" role="dialog" aria-modal="true" aria-labelledby="appModalTitle" aria-describedby="appModalMessage">
+      <div class="app-modal-backdrop" data-modal-close="backdrop"></div>
+      <div class="app-modal-panel" role="document">
+        <button type="button" id="appModalClose" class="app-modal-close" aria-label="Fechar mensagem">Fechar</button>
+        <h3 id="appModalTitle" class="app-modal-title">Atenção</h3>
+        <p id="appModalMessage" class="app-modal-message"></p>
+        <p id="appModalReason" class="app-modal-reason hidden"></p>
+        <ul id="appModalChecks" class="app-modal-checks hidden"></ul>
+        <div class="app-modal-actions">
+          <button type="button" id="appModalReview" class="btn btn-outline hidden">Revisar seleção</button>
+          <button type="button" id="appModalOk" class="btn btn-primary">Entendi</button>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="/src/main.js"></script>
   </body>
