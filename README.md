@@ -172,4 +172,4 @@ A aplicação está publicada e disponível via **Vercel**:
 
 ---
 
-Prefeitura Municipal de Nova Iguaçu — Secretaria Municipal da Fazenda
+
