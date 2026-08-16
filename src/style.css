@@ -312,17 +312,17 @@ body {
 }
 
 .hero-title {
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.2;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1.1rem;
 }
 
 .hero-subtitle {
   font-size: clamp(0.875rem, 2vw, 1.05rem);
   opacity: 0.9;
-  margin-bottom: 2rem;
+  margin-bottom: 2.2rem;
   font-weight: 400;
 }
 
@@ -332,6 +332,7 @@ body {
   gap: 1rem;
   max-width: 940px;
   margin: 0 auto 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .hero-tool-card {
@@ -339,27 +340,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.55rem;
+  gap: 0.5rem;
   text-align: left;
   text-decoration: none;
   border-radius: var(--radius);
   border: 1px solid;
-  padding: 1.35rem;
-  min-height: 260px;
+  padding: 1.15rem 1.2rem;
+  min-height: 235px;
   transition: transform var(--ease), background-color 300ms ease, border-color 300ms ease, box-shadow 300ms ease, color 300ms ease;
   overflow: hidden;
 }
 
 .hero-tool-card h3 {
-  font-size: 1.08rem;
+  font-size: 1rem;
   letter-spacing: -0.01em;
   color: var(--c-text);
 }
 
 .hero-tool-card p {
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   color: var(--c-text-muted);
-  line-height: 1.55;
+  line-height: 1.5;
   max-width: 40ch;
 }
 
