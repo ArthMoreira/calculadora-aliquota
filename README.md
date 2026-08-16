@@ -159,7 +159,6 @@ A aplicação está publicada e disponível via **Vercel**:
 
 > [https://calculadora-aliquota.vercel.app](https://calculadora-aliquota.vercel.app)
 
-O deploy é feito a partir da branch principal do repositório, com build automático a cada atualização.
 
 ---
 
