@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Apuração de IPTU e Valor Venal</title>
     <meta name="description" content="Calculadora de alíquota IPTU do município de Nova Iguaçu — uso interno da Prefeitura" />
-    <!-- Aplica tema antes do render para evitar flash -->
+   
     <script>
       (function () {
         var saved = localStorage.getItem('theme');
@@ -18,7 +18,7 @@
   </head>
   <body>
 
-    <!-- ===== NAVBAR GLASS ===== -->
+   
     <nav id="navbar" class="navbar" aria-label="Navegação principal">
       <div class="navbar-inner">
         <a href="#hero" class="navbar-brand">Calculadora Tributária</a>
@@ -35,7 +35,7 @@
 
     <main class="main-content">
 
-      <!-- ===== HERO ===== -->
+      
       <section id="hero" class="hero-section">
         <div class="hero-glow" aria-hidden="true"></div>
         <div class="container">
@@ -73,7 +73,7 @@
         </div>
       </section>
 
-      <!-- ===== ATALHOS (CARDS) ===== -->
+ 
       <section id="secAtalhos" class="section">
         <div class="container">
           <h2 class="section-title">Acesso rápido</h2>
@@ -123,7 +123,7 @@
         </div>
       </section>
 
-      <!-- ===== CALCULADORA ===== -->
+
       <section id="secCalc" class="section section-alt">
         <div class="container calc-container">
           <h2 class="section-title">Calculadora de IPTU</h2>
@@ -135,7 +135,7 @@
           </div>
 
           <div class="calc-layout" id="calcLayout">
-            <!-- Formulário -->
+            
             <div class="card calc-form-card calc-form-card-modern" id="calcFormCard">
               <div id="calcModeCardGlow" class="calc-mode-card-glow" aria-hidden="true"></div>
               <h3 class="card-title">Dados do Imóvel</h3>
@@ -406,7 +406,7 @@
               </form>
             </div>
 
-            <!-- Resultado -->
+       
             <div class="calc-result-col">
               <div id="result" class="card result-card-wrapper hidden">
                 <div class="result-card-header">
@@ -438,7 +438,7 @@
             </div>
           </div>
 
-          <!-- Accordions: full width abaixo dos dois cards -->
+    
           <div id="calcBottom" class="calc-bottom hidden">
             <details class="result-details">
               <summary id="detailsCalcSummary">Detalhes do Cálculo</summary>
@@ -457,12 +457,12 @@
         </div>
       </section>
 
-      <!-- ===== TABELAS ===== -->
+     
       <section id="secTabelas" class="section">
         <div class="container">
           <h2 class="section-title">Tabelas de Alíquotas</h2>
 
-          <!-- Tabs -->
+          
           <div class="tabs" role="tablist" aria-label="Selecionar tabela de alíquotas">
             <button class="tab active" role="tab" aria-selected="true" aria-controls="panel-tab1" id="tab1" type="button">Territorial</button>
             <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tab2" id="tab2" type="button">Zona Especial</button>
@@ -470,7 +470,7 @@
             <button class="tab" role="tab" aria-selected="false" aria-controls="panel-tab4" id="tab4" type="button">Comercial / Industrial</button>
           </div>
 
-          <!-- TAB 1: Territorial -->
+         
           <div class="tab-panel active" role="tabpanel" id="panel-tab1" aria-labelledby="tab1">
             <div class="card">
               <h3 class="card-title">Tabela 1 — Territorial (por Bairro / URG)</h3>
@@ -551,7 +551,7 @@
             </div>
           </div>
 
-          <!-- TAB 2: Zona Especial -->
+      
           <div class="tab-panel" role="tabpanel" id="panel-tab2" aria-labelledby="tab2" hidden>
             <div class="card">
               <h3 class="card-title">Tabela 2 — Territorial em Zona Especial (ZE)</h3>
@@ -599,7 +599,6 @@
             </div>
           </div>
 
-          <!-- TAB 3: Predial Residencial -->
           <div class="tab-panel" role="tabpanel" id="panel-tab3" aria-labelledby="tab3" hidden>
             <div class="card">
               <h3 class="card-title">Tabela 3 — Predial Residencial (por URG e Valor Venal)</h3>
@@ -651,7 +650,7 @@
             </div>
           </div>
 
-          <!-- TAB 4: Predial Comercial/Industrial -->
+          
           <div class="tab-panel" role="tabpanel" id="panel-tab4" aria-labelledby="tab4" hidden>
             <div class="card">
               <h3 class="card-title">Tabela 4 — Predial Comercial / Industrial (por URG e Valor Venal)</h3>
@@ -706,7 +705,7 @@
         </div>
       </section>
 
-      <!-- ===== BASE LEGAL ===== -->
+
       <section id="secBaseLegal" class="section section-alt">
         <div class="container base-legal-container">
           <div class="base-legal-header">
@@ -733,7 +732,7 @@
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
+
     <footer class="footer-minimal">
       <div class="footer-minimal-inner">
         <div class="footer-minimal-copy">© 2026 Calculadora IPTU Nova Iguaçu</div>
